@@ -151,7 +151,7 @@
     root.innerHTML = `
       <header class="site-nav" id="siteNav">
         <div class="nav-inner">
-          <a class="nav-logo" href="index.html">CIU</a>
+          <a class="nav-logo" href="index.html"><img src="assets/images/logo.jpeg" alt="Campus Insights Logo" class="nav-logo-img" /></a>
           <nav class="nav-links" aria-label="Primary">${links}</nav>
           <div class="nav-actions">
             <a class="apply-btn" href="admissions.html">Apply Now</a>

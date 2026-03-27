@@ -214,7 +214,7 @@
           </div>
           <figure class="intro-image reveal fade">
             <img
-              src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1200&q=80"
+              src="assets/images/Campus Buiding.png"
               alt="Campus building"
               loading="lazy"
             />
@@ -334,23 +334,26 @@
         <div class="container">
           <p class="section-label reveal">Campus Life</p>
           <h2 class="section-title reveal">An Experience Beyond the Classroom</h2>
-          <div class="mosaic-grid">
-            <figure class="mosaic-item large reveal fade">
-              <img src="https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?auto=format&fit=crop&w=1200&q=80" alt="Campus event" loading="lazy" />
-              <figcaption>Innovation Festival</figcaption>
-            </figure>
-            <figure class="mosaic-item reveal fade">
-              <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=900&q=80" alt="Student clubs" loading="lazy" />
-              <figcaption>Student Clubs</figcaption>
-            </figure>
-            <figure class="mosaic-item reveal fade">
-              <img src="https://images.unsplash.com/photo-1546519638-68e109acd27d?auto=format&fit=crop&w=900&q=80" alt="Sports" loading="lazy" />
-              <figcaption>Sports Culture</figcaption>
-            </figure>
-            <figure class="mosaic-item tall reveal fade">
-              <img src="https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?auto=format&fit=crop&w=900&q=80" alt="Campus architecture" loading="lazy" />
-              <figcaption>Campus Greenways</figcaption>
-            </figure>
+          <div class="carousel-container">
+            <div class="carousel" id="campusCarousel">
+              <figure class="carousel-item active reveal fade">
+                <img src="https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?auto=format&fit=crop&w=1200&q=80" alt="Campus event" loading="lazy" />
+                <figcaption>Innovation Festival</figcaption>
+              </figure>
+              <figure class="carousel-item reveal fade">
+                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=900&q=80" alt="Student clubs" loading="lazy" />
+                <figcaption>Student Clubs</figcaption>
+              </figure>
+              <figure class="carousel-item reveal fade">
+                <img src="https://images.unsplash.com/photo-1546519638-68e109acd27d?auto=format&fit=crop&w=900&q=80" alt="Sports" loading="lazy" />
+                <figcaption>Sports Culture</figcaption>
+              </figure>
+              <figure class="carousel-item reveal fade">
+                <img src="https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?auto=format&fit=crop&w=900&q=80" alt="Campus architecture" loading="lazy" />
+                <figcaption>Campus Greenways</figcaption>
+              </figure>
+            </div>
+            <div class="carousel-dots" id="carouselDots"></div>
           </div>
           <div class="highlight-tags reveal">
             <span class="highlight-tag">100+ Clubs and Societies</span>
@@ -515,6 +518,46 @@
         }
         
         console.log('Parallax effect initialized');
+      })();
+
+      // Carousel functionality
+      (function() {
+        const carousel = document.getElementById('campusCarousel');
+        const dotsContainer = document.getElementById('carouselDots');
+        if (!carousel) return;
+
+        const items = carousel.querySelectorAll('.carousel-item');
+        let currentIndex = 0;
+
+        // Create dots
+        items.forEach((_, index) => {
+          const dot = document.createElement('button');
+          dot.className = `dot ${index === 0 ? 'active' : ''}`;
+          dot.addEventListener('click', () => goToSlide(index));
+          dotsContainer.appendChild(dot);
+        });
+
+        function updateCarousel() {
+          items.forEach((item, index) => {
+            item.classList.toggle('active', index === currentIndex);
+          });
+          dotsContainer.querySelectorAll('.dot').forEach((dot, index) => {
+            dot.classList.toggle('active', index === currentIndex);
+          });
+        }
+
+        function nextSlide() {
+          currentIndex = (currentIndex + 1) % items.length;
+          updateCarousel();
+        }
+
+        function goToSlide(index) {
+          currentIndex = index;
+          updateCarousel();
+        }
+
+        // Auto-rotate every 2.5 seconds
+        setInterval(nextSlide, 2500);
       })();
     </script>
     <script src="assets/js/chatbot-data.js"></script>
