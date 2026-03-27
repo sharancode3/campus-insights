@@ -714,6 +714,7 @@
 
     let hasPlayedInView = false;
     let animationLocked = false;
+    let fallbackTimerId = 0;
 
     const runAnimation = () => {
       if (prefersReducedMotion) {
@@ -729,6 +730,15 @@
       animationLocked = false;
     };
 
+    const scheduleFallbackReveal = () => {
+      window.clearTimeout(fallbackTimerId);
+      fallbackTimerId = window.setTimeout(() => {
+        if (hasPlayedInView) return;
+        hasPlayedInView = true;
+        runAnimation();
+      }, 2200);
+    };
+
     const triggerWhenVisible = () => {
       if (hasPlayedInView) return;
       const rect = motionBlock.getBoundingClientRect();
@@ -736,22 +746,32 @@
       if (!inView) return;
 
       hasPlayedInView = true;
+      window.clearTimeout(fallbackTimerId);
       runAnimation();
     };
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting || hasPlayedInView) return;
-          hasPlayedInView = true;
-          runAnimation();
-        });
-      },
-      { threshold: 0.22 }
-    );
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting || hasPlayedInView) return;
+            hasPlayedInView = true;
+            window.clearTimeout(fallbackTimerId);
+            runAnimation();
+            observer.unobserve(motionBlock);
+          });
+        },
+        { threshold: 0.22 }
+      );
 
-    observer.observe(motionBlock);
+      observer.observe(motionBlock);
+    } else {
+      window.addEventListener("scroll", triggerWhenVisible, { passive: true });
+      window.addEventListener("resize", triggerWhenVisible, { passive: true });
+    }
+
     triggerWhenVisible();
+    scheduleFallbackReveal();
 
     const imageAsset = imageCard.querySelector(".intro-image-asset");
     if (imageAsset && !window.matchMedia("(pointer: coarse)").matches && !prefersReducedMotion) {
@@ -796,7 +816,10 @@
       if (!isHomeRoute()) return;
       hasPlayedInView = false;
       motionBlock.classList.remove("is-word-splash-active");
-      window.setTimeout(triggerWhenVisible, 70);
+      window.setTimeout(() => {
+        triggerWhenVisible();
+        scheduleFallbackReveal();
+      }, 70);
     };
 
     window.addEventListener("pageshow", (event) => {
