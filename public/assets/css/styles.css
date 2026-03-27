@@ -990,6 +990,63 @@ body[data-page="home"] .site-footer {
   margin: 1rem 0 0;
 }
 
+.legacy-motion-block {
+  --word-splash-stagger: 95ms;
+  --word-splash-duration: 620ms;
+  --copy-start-delay: 980ms;
+  --copy-step-delay: 90ms;
+  --image-entry-delay: 420ms;
+}
+
+.legacy-splash-title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 0.22em;
+}
+
+.word-splash-word {
+  display: inline-flex;
+  position: relative;
+  transform-origin: 50% 74%;
+  will-change: opacity, transform, filter, clip-path;
+}
+
+.word-splash-word.is-key {
+  color: color-mix(in srgb, var(--text-primary) 82%, var(--gold) 18%);
+}
+
+.legacy-motion-block.is-word-splash-ready .word-splash-word {
+  opacity: 0;
+  transform: translate3d(0, 30px, 0) scale(0.98);
+  filter: blur(6px);
+  clip-path: inset(100% 0 0 0);
+}
+
+.legacy-motion-block.is-word-splash-active .word-splash-word {
+  animation: wordSplashReveal var(--word-splash-duration) cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: calc(var(--word-index, 0) * var(--word-splash-stagger));
+}
+
+.legacy-motion-block.is-word-splash-active .word-splash-word.is-key {
+  animation-name: wordSplashReveal, wordSplashGlow;
+  animation-duration: var(--word-splash-duration), 720ms;
+  animation-delay: calc(var(--word-index, 0) * var(--word-splash-stagger)), calc((var(--word-index, 0) * var(--word-splash-stagger)) + 260ms);
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1), ease-out;
+  animation-fill-mode: forwards, forwards;
+}
+
+.legacy-motion-block.is-word-splash-ready .legacy-splash-copy {
+  opacity: 0;
+  transform: translate3d(0, 20px, 0);
+  will-change: opacity, transform;
+}
+
+.legacy-motion-block.is-word-splash-active .legacy-splash-copy {
+  animation: legacyCopyReveal 650ms var(--ease) forwards;
+  animation-delay: calc(var(--copy-start-delay) + (var(--copy-index, 0) * var(--copy-step-delay)));
+}
+
 .inline-link {
   display: inline-block;
   margin-top: 1.3rem;
@@ -1003,9 +1060,74 @@ body[data-page="home"] .site-footer {
 }
 
 .intro-image {
+  position: relative;
+  margin: 0;
   min-height: 460px;
-  border: 1px solid var(--gold-border);
-  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.28);
+  aspect-ratio: 16 / 10;
+}
+
+.intro-image-premium {
+  border: 1px solid color-mix(in srgb, var(--gold-border) 88%, rgba(255, 255, 255, 0.1));
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--surface-2) 80%, rgba(6, 8, 12, 0.5));
+  box-shadow: 0 24px 52px rgba(0, 0, 0, 0.32), 0 0 0 1px rgba(201, 169, 110, 0.08) inset;
+  overflow: hidden;
+  contain: layout paint;
+  transition: border-color 320ms var(--ease), box-shadow 320ms var(--ease);
+}
+
+.intro-image-media {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.intro-image-media::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(165deg, rgba(6, 9, 13, 0.24) 6%, rgba(6, 9, 13, 0.56) 98%),
+    radial-gradient(circle at 10% 0%, rgba(201, 169, 110, 0.15), transparent 58%);
+  pointer-events: none;
+}
+
+.intro-image-media::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  z-index: 1;
+  background: radial-gradient(circle at center, transparent 60%, rgba(2, 3, 6, 0.3) 100%);
+  pointer-events: none;
+}
+
+.intro-image-asset {
+  transform: translate3d(var(--parallax-x, 0px), var(--parallax-y, 0px), 0) scale(var(--image-scale, 1));
+  filter: contrast(1.08) brightness(0.84) saturate(1.06);
+  transition: transform 360ms var(--ease), filter 360ms var(--ease);
+  will-change: transform, filter;
+}
+
+.legacy-motion-block.is-word-splash-ready + .intro-image-premium {
+  opacity: 0;
+  transform: translate3d(0, 20px, 0);
+}
+
+.legacy-motion-block.is-word-splash-active + .intro-image-premium {
+  animation: introImageReveal 780ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: var(--image-entry-delay);
+}
+
+.intro-image-premium:hover {
+  border-color: color-mix(in srgb, var(--gold) 52%, var(--gold-border));
+  box-shadow: 0 28px 66px rgba(0, 0, 0, 0.38), 0 0 34px rgba(201, 169, 110, 0.14);
+}
+
+.intro-image-premium:hover .intro-image-asset {
+  --image-scale: 1.045;
+  filter: contrast(1.11) brightness(0.88) saturate(1.08);
 }
 
 /* Legacy Section Styles */
@@ -1696,6 +1818,59 @@ body[data-page="home"] .site-footer {
   }
 }
 
+@keyframes wordSplashReveal {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 30px, 0) scale(0.98);
+    filter: blur(6px);
+    clip-path: inset(100% 0 0 0);
+  }
+  60% {
+    opacity: 1;
+    transform: translate3d(0, -1px, 0) scale(1);
+    filter: blur(0.8px);
+    clip-path: inset(0 0 0 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+    filter: blur(0);
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes wordSplashGlow {
+  0%,
+  100% {
+    text-shadow: none;
+  }
+  45% {
+    text-shadow: 0 0 14px rgba(201, 169, 110, 0.2);
+  }
+}
+
+@keyframes legacyCopyReveal {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 20px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes introImageReveal {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 20px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
 @keyframes pulseLine {
   0%,
   100% { transform: scaleY(1); }
@@ -1767,6 +1942,10 @@ body[data-page="home"] .site-footer {
     gap: 16px;
   }
 
+  .intro-image {
+    min-height: 410px;
+  }
+
   .choose-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -1803,6 +1982,10 @@ body[data-page="home"] .site-footer {
   .legacy-grid,
   .placements-grid {
     grid-template-columns: 1fr;
+  }
+
+  .intro-image {
+    min-height: 360px;
   }
 
   .mosaic-grid {
@@ -2228,6 +2411,20 @@ body[data-page="home"] .site-footer {
     position: absolute;
   }
 
+  .intro-image {
+    width: 100%;
+    min-height: 300px;
+    aspect-ratio: 16 / 10;
+  }
+
+  .intro-image-premium {
+    border-radius: 14px;
+  }
+
+  .intro-image-premium:hover .intro-image-asset {
+    --image-scale: 1.02;
+  }
+
   .ghost-mobile-hide {
     display: none;
   }
@@ -2266,6 +2463,22 @@ body[data-page="home"] .site-footer {
 
   .footer-bottom {
     flex-direction: column;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .legacy-motion-block.is-word-splash-ready .word-splash-word,
+  .legacy-motion-block.is-word-splash-ready .legacy-splash-copy,
+  .legacy-motion-block.is-word-splash-ready + .intro-image-premium {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    clip-path: none;
+    animation: none;
+  }
+
+  .intro-image-asset {
+    transition: none;
   }
 }
 /* Department Programme Cards - Efficient Layout */

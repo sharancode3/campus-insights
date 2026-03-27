@@ -663,6 +663,170 @@
     showSlide(0);
   }
 
+  function setupAboutLegacyMotion() {
+    const motionBlock = document.querySelector("[data-legacy-motion]");
+    const title = motionBlock ? motionBlock.querySelector("[data-word-splash]") : null;
+    const imageCard = document.querySelector("[data-legacy-image]");
+    if (!motionBlock || !title || !imageCard) return;
+
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const originalTitle = (title.textContent || "").trim();
+    if (!originalTitle) return;
+
+    const splitTitleIntoWords = () => {
+      if (title.dataset.splashed === "true") return;
+
+      const words = originalTitle.split(/\s+/);
+      const keyWords = new Set(["excellence"]);
+      title.textContent = "";
+      title.setAttribute("aria-label", originalTitle);
+
+      words.forEach((word, index) => {
+        const wordEl = document.createElement("span");
+        wordEl.className = "word-splash-word";
+        wordEl.textContent = word;
+        wordEl.style.setProperty("--word-index", String(index));
+
+        const normalized = word.replace(/[^a-z0-9]/gi, "").toLowerCase();
+        if (keyWords.has(normalized)) {
+          wordEl.classList.add("is-key");
+        }
+
+        title.appendChild(wordEl);
+      });
+
+      title.dataset.splashed = "true";
+
+      const copyEls = motionBlock.querySelectorAll(".legacy-splash-copy");
+      copyEls.forEach((el, index) => {
+        el.style.setProperty("--copy-index", String(index));
+      });
+
+      const staggerMs = 95;
+      const totalWordTime = Math.max(700, words.length * staggerMs + 560);
+      motionBlock.style.setProperty("--copy-start-delay", `${totalWordTime + 240}ms`);
+      motionBlock.style.setProperty("--image-entry-delay", `${Math.max(360, Math.round(words.length * staggerMs * 0.62))}ms`);
+    };
+
+    splitTitleIntoWords();
+    motionBlock.classList.add("is-word-splash-ready");
+
+    let hasPlayedInView = false;
+    let animationLocked = false;
+
+    const runAnimation = () => {
+      if (prefersReducedMotion) {
+        motionBlock.classList.add("is-word-splash-active");
+        return;
+      }
+
+      if (animationLocked) return;
+      animationLocked = true;
+      motionBlock.classList.remove("is-word-splash-active");
+      void motionBlock.offsetWidth;
+      motionBlock.classList.add("is-word-splash-active");
+      animationLocked = false;
+    };
+
+    const triggerWhenVisible = () => {
+      if (hasPlayedInView) return;
+      const rect = motionBlock.getBoundingClientRect();
+      const inView = rect.top < window.innerHeight * 0.9 && rect.bottom > window.innerHeight * 0.15;
+      if (!inView) return;
+
+      hasPlayedInView = true;
+      runAnimation();
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting || hasPlayedInView) return;
+          hasPlayedInView = true;
+          runAnimation();
+        });
+      },
+      { threshold: 0.22 }
+    );
+
+    observer.observe(motionBlock);
+    triggerWhenVisible();
+
+    const imageAsset = imageCard.querySelector(".intro-image-asset");
+    if (imageAsset && !window.matchMedia("(pointer: coarse)").matches && !prefersReducedMotion) {
+      let rafId = 0;
+      let targetX = 0;
+      let targetY = 0;
+
+      const applyParallax = () => {
+        imageAsset.style.setProperty("--parallax-x", `${targetX.toFixed(2)}px`);
+        imageAsset.style.setProperty("--parallax-y", `${targetY.toFixed(2)}px`);
+        rafId = 0;
+      };
+
+      imageCard.addEventListener("mousemove", (event) => {
+        const rect = imageCard.getBoundingClientRect();
+        const offsetX = (event.clientX - rect.left) / rect.width - 0.5;
+        const offsetY = (event.clientY - rect.top) / rect.height - 0.5;
+        targetX = offsetX * 10;
+        targetY = offsetY * 8;
+
+        if (!rafId) {
+          rafId = window.requestAnimationFrame(applyParallax);
+        }
+      });
+
+      imageCard.addEventListener("mouseleave", () => {
+        targetX = 0;
+        targetY = 0;
+
+        if (!rafId) {
+          rafId = window.requestAnimationFrame(applyParallax);
+        }
+      });
+    }
+
+    const isHomeRoute = () => {
+      const path = window.location.pathname.toLowerCase();
+      return path === "/" || path.endsWith("/index.html") || document.body.dataset.page === "home";
+    };
+
+    const replayForHome = () => {
+      if (!isHomeRoute()) return;
+      hasPlayedInView = false;
+      motionBlock.classList.remove("is-word-splash-active");
+      window.setTimeout(triggerWhenVisible, 70);
+    };
+
+    window.addEventListener("pageshow", (event) => {
+      if (!event.persisted) return;
+      replayForHome();
+    });
+    window.addEventListener("popstate", replayForHome);
+    window.addEventListener("hashchange", replayForHome);
+
+    if (!window.__ciuHistoryPatched) {
+      const wrapHistory = (methodName) => {
+        const original = history[methodName];
+        if (typeof original !== "function") return;
+
+        history[methodName] = function patchedHistoryState(...args) {
+          const result = original.apply(this, args);
+          window.dispatchEvent(new Event("ciu:route-change"));
+          return result;
+        };
+      };
+
+      wrapHistory("pushState");
+      wrapHistory("replaceState");
+      window.__ciuHistoryPatched = true;
+    }
+
+    window.addEventListener("ciu:route-change", () => {
+      window.setTimeout(replayForHome, 50);
+    });
+  }
+
   function init() {
     buildNav();
     setupSettingsPanel();
@@ -670,6 +834,7 @@
     setupLoader();
     setupHeroVideo();
     setupHeroParallax();
+    setupAboutLegacyMotion();
     setupStagger();
     setupReveals();
     setupCounters();
