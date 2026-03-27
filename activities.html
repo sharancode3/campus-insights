@@ -155,18 +155,22 @@
         width: 100%;
         aspect-ratio: 16 / 9;
         border-radius: 10px;
-        border: 1px dashed rgba(201, 169, 110, 0.5);
-        background:
-          linear-gradient(145deg, rgba(201, 169, 110, 0.09), rgba(255, 255, 255, 0.02)),
-          repeating-linear-gradient(-45deg, rgba(201, 169, 110, 0.08) 0, rgba(201, 169, 110, 0.08) 8px, transparent 8px, transparent 16px);
-        display: grid;
-        place-items: center;
-        color: var(--gold);
-        font-size: 0.7rem;
-        text-transform: uppercase;
-        letter-spacing: 0.09em;
-        text-align: center;
-        padding: 14px;
+        border: 1px solid var(--gold-border);
+        overflow: hidden;
+        background: var(--surface-2);
+      }
+
+      .image-slot img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 320ms var(--ease), filter 320ms var(--ease);
+        filter: saturate(1.03) contrast(1.05) brightness(0.88);
+      }
+
+      .event-card:hover .image-slot img {
+        transform: scale(1.04);
+        filter: saturate(1.05) contrast(1.08) brightness(0.92);
       }
 
       .announcement-panel {
@@ -430,37 +434,37 @@
 
           <div class="events-grid grid-3" data-stagger-group>
             <article class="event-card reveal" data-stagger>
-              <div class="image-slot">Image Space - National Robotics Challenge</div>
+              <div class="image-slot"><img src="assets/images/event-robotics.svg" alt="Students building robots during a robotics challenge workshop" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='assets/images/campus-building.png';" /></div>
               <span class="badge">Workshop</span>
               <h3 class="event-title">National Robotics Challenge Preparatory Camp</h3>
               <p class="event-copy">Interdisciplinary teams developed autonomous mobility prototypes and control architecture demos.</p>
             </article>
             <article class="event-card reveal" data-stagger>
-              <div class="image-slot">Image Space - Startup Bootcamp</div>
+              <div class="image-slot"><img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=80" alt="Startup teams presenting ideas during a campus bootcamp" loading="lazy" decoding="async" /></div>
               <span class="badge">Fest</span>
               <h3 class="event-title">Campus Startup Bootcamp</h3>
               <p class="event-copy">Early-stage founders refined business models, investor pitches, and product-market validation paths.</p>
             </article>
             <article class="event-card reveal" data-stagger>
-              <div class="image-slot">Image Space - Cyber Security Sprint</div>
+              <div class="image-slot"><img src="https://images.unsplash.com/photo-1510511459019-5dda7724fd87?auto=format&fit=crop&w=1200&q=80" alt="Cyber security team collaborating during a hackathon sprint" loading="lazy" decoding="async" /></div>
               <span class="badge">Hackathon</span>
               <h3 class="event-title">Cyber Security Sprint</h3>
               <p class="event-copy">Teams solved security incident simulations, exploit mitigation cases, and architecture hardening tasks.</p>
             </article>
             <article class="event-card reveal" data-stagger>
-              <div class="image-slot">Image Space - Cultural Night</div>
+              <div class="image-slot"><img src="assets/images/event-cultural-night.svg" alt="Students performing on stage during an inter-college cultural night" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='assets/images/campus-building.png';" /></div>
               <span class="badge">Fest</span>
               <h3 class="event-title">Inter-College Cultural Night</h3>
               <p class="event-copy">Performing arts ensembles and student collectives delivered curated thematic performances.</p>
             </article>
             <article class="event-card reveal" data-stagger>
-              <div class="image-slot">Image Space - Industry Talk</div>
+              <div class="image-slot"><img src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&w=1200&q=80" alt="Industry speaker presenting future mobility trends to students" loading="lazy" decoding="async" /></div>
               <span class="badge">Seminar</span>
               <h3 class="event-title">Industry Talk Series: Future of Mobility</h3>
               <p class="event-copy">Leaders from automotive and aerospace sectors discussed sustainable mobility innovation.</p>
             </article>
             <article class="event-card reveal" data-stagger>
-              <div class="image-slot">Image Space - Sports League</div>
+              <div class="image-slot"><img src="https://images.unsplash.com/photo-1521412644187-c49fa049e84d?auto=format&fit=crop&w=1200&q=80" alt="Campus sports teams competing in a league match" loading="lazy" decoding="async" /></div>
               <span class="badge">Sports</span>
               <h3 class="event-title">Campus Premier Sports League</h3>
               <p class="event-copy">Department teams participated in league-format football and basketball fixtures.</p>

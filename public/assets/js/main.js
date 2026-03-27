@@ -3,6 +3,7 @@
     theme: "ciu-theme",
     contrast: "ciu-contrast"
   };
+  const FORCE_SPLASH_KEY = "ciu-force-splash";
 
   const navItems = [
     { id: "home", label: "Home", href: "index.html" },
@@ -285,6 +286,7 @@
     });
 
     const nav = document.getElementById("siteNav");
+    const logoLink = root.querySelector(".nav-logo");
     const toggle = root.querySelector(".nav-toggle");
     const mobileMenu = document.getElementById("mobileMenu");
 
@@ -313,6 +315,25 @@
     mobileMenu.querySelectorAll("a").forEach((link) => {
       link.addEventListener("click", closeMenu);
     });
+
+    if (logoLink) {
+      logoLink.addEventListener("click", (event) => {
+        try {
+          window.sessionStorage.setItem(FORCE_SPLASH_KEY, "1");
+        } catch (_error) {
+          // Ignore session storage access issues in strict browser modes.
+        }
+
+        if (document.body.dataset.page !== "home") return;
+
+        event.preventDefault();
+        const aboutSection = document.getElementById("about");
+        if (aboutSection) {
+          aboutSection.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+        window.dispatchEvent(new Event("ciu:force-splash"));
+      });
+    }
 
     window.addEventListener("scroll", syncNavState, { passive: true });
     syncNavState();
@@ -674,6 +695,18 @@
     const originalTitle = (title.textContent || "").trim();
     if (!originalTitle) return;
 
+    const getForcedSplashRequest = () => {
+      try {
+        const forced = window.sessionStorage.getItem(FORCE_SPLASH_KEY) === "1";
+        if (forced) {
+          window.sessionStorage.removeItem(FORCE_SPLASH_KEY);
+        }
+        return forced;
+      } catch (_error) {
+        return false;
+      }
+    };
+
     const splitTitleIntoWords = () => {
       if (title.dataset.splashed === "true") return;
 
@@ -739,6 +772,13 @@
       }, 2200);
     };
 
+    const forceReplay = () => {
+      hasPlayedInView = true;
+      window.clearTimeout(fallbackTimerId);
+      motionBlock.classList.remove("is-word-splash-active");
+      window.setTimeout(runAnimation, 80);
+    };
+
     const triggerWhenVisible = () => {
       if (hasPlayedInView) return;
       const rect = motionBlock.getBoundingClientRect();
@@ -772,6 +812,14 @@
 
     triggerWhenVisible();
     scheduleFallbackReveal();
+
+    if (getForcedSplashRequest()) {
+      const aboutSection = document.getElementById("about");
+      if (aboutSection) {
+        aboutSection.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+      window.setTimeout(forceReplay, 140);
+    }
 
     const imageAsset = imageCard.querySelector(".intro-image-asset");
     if (imageAsset && !window.matchMedia("(pointer: coarse)").matches && !prefersReducedMotion) {
@@ -849,6 +897,7 @@
     window.addEventListener("ciu:route-change", () => {
       window.setTimeout(replayForHome, 50);
     });
+    window.addEventListener("ciu:force-splash", forceReplay);
   }
 
   function init() {
