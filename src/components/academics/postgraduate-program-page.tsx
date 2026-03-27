@@ -37,17 +37,43 @@ export function PostgraduateProgramPage({ program }: PostgraduateProgramPageProp
           </ol>
         </nav>
 
-        <header className="rounded-xl border border-[var(--gold-border)] bg-[var(--surface)] p-6 md:p-10 mb-8 md:mb-10 shadow-[0_18px_44px_rgba(201,169,110,0.12)] animate-in fade-in duration-500">
-          <p className="font-label uppercase tracking-[0.22em] text-[var(--gold)] text-xs md:text-sm mb-3">Postgraduate Program</p>
-          <h1 className="font-heading text-5xl md:text-7xl font-light text-[var(--foreground)] leading-tight mb-4">
-            {program.courseName}
-          </h1>
-          <div className="grid gap-2 text-[var(--foreground)] md:text-3xl font-heading">
-            <p><span className="text-[var(--text-dim)] text-base md:text-xl font-sans">Degree:</span> {program.degreeTitle}</p>
-            <p><span className="text-[var(--text-dim)] text-base md:text-xl font-sans">Department:</span> {program.departmentName}</p>
+        <header className="rounded-xl border border-[var(--gold-border)] bg-[var(--surface)] p-6 md:p-10 mb-8 md:mb-10 shadow-[0_18px_44px_rgba(201,169,110,0.12)] animate-in fade-in duration-500 overflow-hidden">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+            <div>
+              <p className="font-label uppercase tracking-[0.22em] text-[var(--gold)] text-xs md:text-sm mb-3">Postgraduate Program</p>
+              <h1 className="font-heading text-5xl md:text-7xl font-light text-[var(--foreground)] leading-tight mb-4">
+                {program.courseName}
+              </h1>
+              <div className="grid gap-2 text-[var(--foreground)] md:text-3xl font-heading">
+                <p><span className="text-[var(--text-dim)] text-base md:text-xl font-sans">Degree:</span> {program.degreeTitle}</p>
+                <p><span className="text-[var(--text-dim)] text-base md:text-xl font-sans">Department:</span> {program.departmentName}</p>
+              </div>
+              <p className="mt-5 text-[var(--text-muted)] max-w-3xl text-lg leading-8">{program.shortOverview}</p>
+            </div>
+            <div className="rounded-xl border border-[var(--border)] bg-[var(--surface-2)] p-2">
+              <img
+                src={program.heroImage}
+                alt={`${program.courseName} program visual`}
+                className="w-full h-72 md:h-80 object-cover rounded-lg"
+              />
+            </div>
           </div>
-          <p className="mt-5 text-[var(--text-muted)] max-w-3xl text-lg leading-8">{program.shortOverview}</p>
         </header>
+
+        <section className="mb-8 md:mb-10">
+          <h2 className="font-heading text-4xl md:text-5xl font-normal text-[var(--foreground)] mb-4">Program Gallery</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {program.galleryImages.map((image, index) => (
+              <article key={image} className="rounded-xl border border-[var(--border)] bg-[var(--surface)] p-2">
+                <img
+                  src={image}
+                  alt={`${program.courseName} image ${index + 1}`}
+                  className="w-full h-52 object-cover rounded-lg"
+                />
+              </article>
+            ))}
+          </div>
+        </section>
 
         <div className="grid gap-6 md:gap-8">
           <SectionCard title="About the Program">

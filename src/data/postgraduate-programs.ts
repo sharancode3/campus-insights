@@ -3,6 +3,8 @@ export type PostgraduateProgram = {
   courseName: string;
   degreeTitle: 'M.Tech';
   departmentName: string;
+  heroImage: string;
+  galleryImages: string[];
   shortOverview: string;
   about: string;
   focusAreas: string[];
@@ -31,6 +33,12 @@ export const postgraduatePrograms: PostgraduateProgram[] = [
     courseName: 'Civil Engineering',
     degreeTitle: 'M.Tech',
     departmentName: 'Department of Civil Engineering',
+    heroImage: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1400&q=80',
+    galleryImages: [
+      'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1400&q=80',
+      'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=1400&q=80',
+      'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1400&q=80'
+    ],
     shortOverview:
       'An advanced program focused on resilient infrastructure, structural intelligence, and sustainable urban development.',
     about:
@@ -66,6 +74,12 @@ export const postgraduatePrograms: PostgraduateProgram[] = [
     courseName: 'Mechanical Engineering',
     degreeTitle: 'M.Tech',
     departmentName: 'Department of Mechanical Engineering',
+    heroImage: 'https://images.unsplash.com/photo-1581093806997-124204d9fa9d?auto=format&fit=crop&w=1400&q=80',
+    galleryImages: [
+      'https://images.unsplash.com/photo-1581093806997-124204d9fa9d?auto=format&fit=crop&w=1400&q=80',
+      'https://images.unsplash.com/photo-1565043589221-1a6fd9ae45c7?auto=format&fit=crop&w=1400&q=80',
+      'https://images.unsplash.com/photo-1565043666747-69f6646db940?auto=format&fit=crop&w=1400&q=80'
+    ],
     shortOverview:
       'A future-oriented specialization in advanced manufacturing, thermal systems, and intelligent mechanical design.',
     about:
@@ -101,6 +115,12 @@ export const postgraduatePrograms: PostgraduateProgram[] = [
     courseName: 'Electrical Engineering',
     degreeTitle: 'M.Tech',
     departmentName: 'Department of Electrical Engineering',
+    heroImage: 'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=1400&q=80',
+    galleryImages: [
+      'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=1400&q=80',
+      'https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?auto=format&fit=crop&w=1400&q=80',
+      'https://images.unsplash.com/photo-1518773553398-650c184e0bb3?auto=format&fit=crop&w=1400&q=80'
+    ],
     shortOverview:
       'An advanced curriculum centered on power systems, renewable integration, and intelligent electrical networks.',
     about:
@@ -136,6 +156,12 @@ export const postgraduatePrograms: PostgraduateProgram[] = [
     courseName: 'Electronics Engineering',
     degreeTitle: 'M.Tech',
     departmentName: 'Department of Electronics Engineering',
+    heroImage: 'https://images.unsplash.com/photo-1518773553398-650c184e0bb3?auto=format&fit=crop&w=1400&q=80',
+    galleryImages: [
+      'https://images.unsplash.com/photo-1518773553398-650c184e0bb3?auto=format&fit=crop&w=1400&q=80',
+      'https://images.unsplash.com/photo-1553406830-ef2513450d76?auto=format&fit=crop&w=1400&q=80',
+      'https://images.unsplash.com/photo-1563770660941-10a636076a1f?auto=format&fit=crop&w=1400&q=80'
+    ],
     shortOverview:
       'An advanced specialization in VLSI, embedded systems, communication intelligence, and electronics design.',
     about:
@@ -171,6 +197,12 @@ export const postgraduatePrograms: PostgraduateProgram[] = [
     courseName: 'Computer Science',
     degreeTitle: 'M.Tech',
     departmentName: 'Department of Computer Science and Engineering',
+    heroImage: 'https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=1400&q=80',
+    galleryImages: [
+      'https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=1400&q=80',
+      'https://images.unsplash.com/photo-1516116216624-53e697fedbea?auto=format&fit=crop&w=1400&q=80',
+      'https://images.unsplash.com/photo-1526379095098-d400fd0bf935?auto=format&fit=crop&w=1400&q=80'
+    ],
     shortOverview:
       'A rigorous M.Tech program focused on distributed systems, data intelligence, security, and next-gen software architecture.',
     about:
@@ -206,6 +238,12 @@ export const postgraduatePrograms: PostgraduateProgram[] = [
     courseName: 'Chemical Engineering',
     degreeTitle: 'M.Tech',
     departmentName: 'Department of Chemical Engineering',
+    heroImage: 'https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=1400&q=80',
+    galleryImages: [
+      'https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=1400&q=80',
+      'https://images.unsplash.com/photo-1581093588401-16ec6bb2f8c6?auto=format&fit=crop&w=1400&q=80',
+      'https://images.unsplash.com/photo-1581093588401-fbb62a02f120?auto=format&fit=crop&w=1400&q=80'
+    ],
     shortOverview:
       'An advanced program in process intensification, sustainable production, and applied chemical systems engineering.',
     about:
@@ -241,6 +279,12 @@ export const postgraduatePrograms: PostgraduateProgram[] = [
     courseName: 'Aerospace Engineering',
     degreeTitle: 'M.Tech',
     departmentName: 'Department of Aerospace Engineering',
+    heroImage: 'https://images.unsplash.com/photo-1517976487492-5750f3195933?auto=format&fit=crop&w=1400&q=80',
+    galleryImages: [
+      'https://images.unsplash.com/photo-1517976487492-5750f3195933?auto=format&fit=crop&w=1400&q=80',
+      'https://images.unsplash.com/photo-1474302770737-173ee21bab63?auto=format&fit=crop&w=1400&q=80',
+      'https://images.unsplash.com/photo-1541185933-ef5d8ed016c2?auto=format&fit=crop&w=1400&q=80'
+    ],
     shortOverview:
       'An advanced aerospace program emphasizing aerodynamics, propulsion, and space systems for future flight.',
     about:
@@ -276,6 +320,12 @@ export const postgraduatePrograms: PostgraduateProgram[] = [
     courseName: 'AI and Machine Learning',
     degreeTitle: 'M.Tech',
     departmentName: 'Department of Artificial Intelligence and Data Science',
+    heroImage: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1400&q=80',
+    galleryImages: [
+      'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1400&q=80',
+      'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=1400&q=80',
+      'https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&w=1400&q=80'
+    ],
     shortOverview:
       'A deep specialization in AI engineering, machine learning systems, and responsible intelligent technologies.',
     about:
