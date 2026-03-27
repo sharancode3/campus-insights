@@ -74,7 +74,6 @@
       }
 
       .program-tab-icon {
-        font-size: 2.4rem;
         color: var(--gold);
         margin-bottom: 16px;
         display: flex;
@@ -84,6 +83,16 @@
         height: 60px;
         background: rgba(201, 169, 110, 0.1);
         border-radius: 8px;
+      }
+
+      .program-tab-icon .icon-svg {
+        width: 30px;
+        height: 30px;
+        stroke: currentColor;
+        fill: none;
+        stroke-width: 1.9;
+        stroke-linecap: round;
+        stroke-linejoin: round;
       }
 
       .program-tab h3 {
@@ -144,7 +153,6 @@
       }
 
       .dept-card-icon {
-        font-size: 2.2rem;
         color: var(--gold);
         margin-bottom: 16px;
         display: flex;
@@ -154,6 +162,16 @@
         height: 56px;
         background: rgba(201, 169, 110, 0.1);
         border-radius: 8px;
+      }
+
+      .dept-card-icon .icon-svg {
+        width: 28px;
+        height: 28px;
+        stroke: currentColor;
+        fill: none;
+        stroke-width: 1.9;
+        stroke-linecap: round;
+        stroke-linejoin: round;
       }
 
       .dept-card-equal h3 {
@@ -217,12 +235,21 @@
       }
 
       .feature-icon-large {
-        font-size: 3rem;
         color: var(--gold);
         margin-bottom: 20px;
         display: flex;
         align-items: center;
         justify-content: center;
+      }
+
+      .feature-icon-large .icon-svg {
+        width: 34px;
+        height: 34px;
+        stroke: currentColor;
+        fill: none;
+        stroke-width: 1.9;
+        stroke-linecap: round;
+        stroke-linejoin: round;
       }
 
       .feature-card h3 {
@@ -265,7 +292,6 @@
       }
 
       .pathway-icon {
-        font-size: 2.4rem;
         color: var(--gold);
         margin-bottom: 16px;
         display: flex;
@@ -275,6 +301,16 @@
         height: 64px;
         background: rgba(201, 169, 110, 0.1);
         border-radius: 8px;
+      }
+
+      .pathway-icon .icon-svg {
+        width: 30px;
+        height: 30px;
+        stroke: currentColor;
+        fill: none;
+        stroke-width: 1.9;
+        stroke-linecap: round;
+        stroke-linejoin: round;
       }
 
       .pathway-card h3 {
@@ -356,7 +392,7 @@
           <div class="program-tabs">
             <!-- Undergraduate -->
             <div class="program-tab reveal">
-              <div class="program-tab-icon">📚</div>
+              <div class="program-tab-icon"><svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h7a3 3 0 0 1 3 3v11H7a3 3 0 0 0-3 3z"/><path d="M20 5h-7a3 3 0 0 0-3 3v11h7a3 3 0 0 1 3 3z"/></svg></div>
               <h3>Undergraduate Programs</h3>
               <p class="program-tab-desc">Transform foundational knowledge into professional expertise through comprehensive 4-year curricula.</p>
               <ul class="program-benefits">
@@ -369,7 +405,7 @@
 
             <!-- Postgraduate -->
             <div class="program-tab reveal">
-              <div class="program-tab-icon">🎓</div>
+              <div class="program-tab-icon"><svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9l9-4 9 4-9 4-9-4z"/><path d="M7 11v4c0 1.7 2.2 3 5 3s5-1.3 5-3v-4"/><path d="M21 10v6"/></svg></div>
               <h3>Postgraduate Programs</h3>
               <p class="program-tab-desc">Advanced specialization for professionals seeking expertise and research opportunities.</p>
               <ul class="program-benefits">
@@ -382,7 +418,7 @@
 
             <!-- Research & PhD -->
             <div class="program-tab reveal">
-              <div class="program-tab-icon">🔬</div>
+              <div class="program-tab-icon"><svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3h6"/><path d="M10 3v6l-4 7a3 3 0 0 0 2.6 4.5h6.8A3 3 0 0 0 18 16l-4-7V3"/></svg></div>
               <h3>Research & PhD Programs</h3>
               <p class="program-tab-desc">Doctoral studies with world-class faculty and collaborative international research networks.</p>
               <ul class="program-benefits">
@@ -395,7 +431,7 @@
 
             <!-- Academic Support -->
             <div class="program-tab reveal">
-              <div class="program-tab-icon">🎯</div>
+              <div class="program-tab-icon"><svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="1"/></svg></div>
               <h3>Academic Support Services</h3>
               <p class="program-tab-desc">Comprehensive resources to ensure student success at every academic level.</p>
               <ul class="program-benefits">
@@ -419,7 +455,7 @@
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 28px;">
             <!-- Core Engineering -->
             <a href="dept-civil.html" class="dept-card-equal reveal">
-              <div class="dept-card-icon">🏗️</div>
+              <div class="dept-card-icon"><svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 21h16"/><path d="M6 21V7l6-4 6 4v14"/><path d="M9 11h2"/><path d="M13 11h2"/><path d="M9 15h2"/><path d="M13 15h2"/></svg></div>
               <h3>Civil Engineering</h3>
               <p class="dept-card-focus">Infrastructure & Structures</p>
               <p class="dept-card-desc">Build the future with expertise in structural design, sustainable infrastructure, water resources, and geotechnical engineering.</p>
@@ -427,7 +463,7 @@
             </a>
 
             <a href="dept-mechanical.html" class="dept-card-equal reveal">
-              <div class="dept-card-icon">⚙️</div>
+              <div class="dept-card-icon"><svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.7 6.3a3 3 0 0 0 3.9 3.9l-8.3 8.3a2 2 0 1 1-2.8-2.8z"/><path d="M16 4l4 4"/></svg></div>
               <h3>Mechanical Engineering</h3>
               <p class="dept-card-focus">Manufacturing & Systems</p>
               <p class="dept-card-desc">Master thermodynamics, robotics, fluid mechanics, and manufacturing technologies shaping modern industry.</p>
@@ -435,7 +471,7 @@
             </a>
 
             <a href="dept-electrical.html" class="dept-card-equal reveal">
-              <div class="dept-card-icon">⚡</div>
+              <div class="dept-card-icon"><svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2L4 14h6l-1 8 9-12h-6z"/></svg></div>
               <h3>Electrical Engineering</h3>
               <p class="dept-card-focus">Power & Control Systems</p>
               <p class="dept-card-desc">Design and optimize power systems, control networks, and electrical infrastructure for sustainable energy.</p>
@@ -443,7 +479,7 @@
             </a>
 
             <a href="dept-electronics.html" class="dept-card-equal reveal">
-              <div class="dept-card-icon">🔌</div>
+              <div class="dept-card-icon"><svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="2"/><path d="M10 1v3M14 1v3M10 20v3M14 20v3M20 10h3M20 14h3M1 10h3M1 14h3"/></svg></div>
               <h3>Electronics & Instrumentation</h3>
               <p class="dept-card-focus">Semiconductors & Signals</p>
               <p class="dept-card-desc">Develop expertise in microelectronics, embedded systems, VLSI design, and advanced signal processing.</p>
@@ -451,7 +487,7 @@
             </a>
 
             <a href="dept-cse.html" class="dept-card-equal reveal">
-              <div class="dept-card-icon">💻</div>
+              <div class="dept-card-icon"><svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8"/><path d="M12 16v4"/></svg></div>
               <h3>Computer Science Engineering</h3>
               <p class="dept-card-focus">Software & Systems</p>
               <p class="dept-card-desc">Build next-generation software, cloud platforms, and intelligent systems with cutting-edge technologies.</p>
@@ -459,7 +495,7 @@
             </a>
 
             <a href="dept-aerospace.html" class="dept-card-equal reveal">
-              <div class="dept-card-icon">✈️</div>
+              <div class="dept-card-icon"><svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l4 7-4 13-4-13z"/><path d="M9 9h6"/></svg></div>
               <h3>Aerospace Engineering</h3>
               <p class="dept-card-focus">Aviation & Space</p>
               <p class="dept-card-desc">Advance aviation technology with expertise in aerodynamics, propulsion systems, and flight dynamics.</p>
@@ -468,7 +504,7 @@
 
             <!-- Advanced/Emerging -->
             <a href="dept-chemical.html" class="dept-card-equal reveal">
-              <div class="dept-card-icon">🧪</div>
+              <div class="dept-card-icon"><svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3h6"/><path d="M10 3v6l-4 7a3 3 0 0 0 2.6 4.5h6.8A3 3 0 0 0 18 16l-4-7V3"/></svg></div>
               <h3>Chemical Engineering</h3>
               <p class="dept-card-focus">Processes & Sustainability</p>
               <p class="dept-card-desc">Innovate in pharmaceutical production, sustainable processes, and green chemistry technologies.</p>
@@ -476,7 +512,7 @@
             </a>
 
             <a href="dept-ml.html" class="dept-card-equal reveal">
-              <div class="dept-card-icon">🤖</div>
+              <div class="dept-card-icon"><svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="12" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="18" cy="18" r="2"/><path d="M8 12h6M16.6 7.4l-3.2 3.2M13.4 13.4l3.2 3.2"/></svg></div>
               <h3>AI & Machine Learning</h3>
               <p class="dept-card-focus">Data & Intelligence</p>
               <p class="dept-card-desc">Pioneer artificial intelligence, deep learning, and data science solutions for real-world challenges.</p>
@@ -494,37 +530,37 @@
           
           <div class="features-grid">
             <div class="feature-card reveal">
-              <div class="feature-icon-large">🏢</div>
+              <div class="feature-icon-large"><svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 21h16"/><path d="M6 21V7l6-4 6 4v14"/><path d="M9 11h2"/><path d="M13 11h2"/><path d="M9 15h2"/><path d="M13 15h2"/></svg></div>
               <h3>Industry Projects</h3>
               <p>Real-world capstone projects with leading organizations, solving actual industry challenges while building portfolio.</p>
             </div>
 
             <div class="feature-card reveal">
-              <div class="feature-icon-large">💼</div>
+              <div class="feature-icon-large"><svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="12" rx="2"/><path d="M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/><path d="M3 12h18"/></svg></div>
               <h3>Internship Opportunities</h3>
               <p>Structured internship programs with 500+ partner organizations ensuring practical industry experience.</p>
             </div>
 
             <div class="feature-card reveal">
-              <div class="feature-icon-large">🔬</div>
+              <div class="feature-icon-large"><svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3h6"/><path d="M10 3v6l-4 7a3 3 0 0 0 2.6 4.5h6.8A3 3 0 0 0 18 16l-4-7V3"/></svg></div>
               <h3>Research Labs & Centers</h3>
               <p>State-of-the-art facilities for fundamental and applied research in emerging technologies.</p>
             </div>
 
             <div class="feature-card reveal">
-              <div class="feature-icon-large">💡</div>
+              <div class="feature-icon-large"><svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7V18h8v-3.3A7 7 0 0 0 12 2z"/></svg></div>
               <h3>Innovation Centers</h3>
               <p>Dedicated spaces for prototyping, startup incubation, and technology entrepreneurship.</p>
             </div>
 
             <div class="feature-card reveal">
-              <div class="feature-icon-large">🌍</div>
+              <div class="feature-icon-large"><svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a13 13 0 0 1 0 18"/><path d="M12 3a13 13 0 0 0 0 18"/></svg></div>
               <h3>Global Exposure</h3>
               <p>Study abroad programs, exchange semesters, and international research collaborations with top universities.</p>
             </div>
 
             <div class="feature-card reveal">
-              <div class="feature-icon-large">📚</div>
+              <div class="feature-icon-large"><svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="4" width="14" height="16" rx="2"/><path d="M9 2h6v4H9z"/><path d="M8 10h8"/><path d="M8 14h6"/></svg></div>
               <h3>Technical Workshops</h3>
               <p>Regular upskilling workshops, certification programs, and industry expert seminars throughout the year.</p>
             </div>
@@ -540,37 +576,37 @@
           
           <div class="pathway-grid">
             <div class="pathway-card reveal">
-              <div class="pathway-icon">📚</div>
+              <div class="pathway-icon"><svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h7a3 3 0 0 1 3 3v11H7a3 3 0 0 0-3 3z"/><path d="M20 5h-7a3 3 0 0 0-3 3v11h7a3 3 0 0 1 3 3z"/></svg></div>
               <h3>Undergraduate Degree</h3>
               <p>Four-year comprehensive engineering programs with honors tracks, specializations, and interdisciplinary minors for well-rounded professionals.</p>
             </div>
 
             <div class="pathway-card reveal">
-              <div class="pathway-icon">🎓</div>
+              <div class="pathway-icon"><svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9l9-4 9 4-9 4-9-4z"/><path d="M7 11v4c0 1.7 2.2 3 5 3s5-1.3 5-3v-4"/><path d="M21 10v6"/></svg></div>
               <h3>Postgraduate Specialization</h3>
               <p>Two-year master's programs combining foundational knowledge, advanced research, and industry-aligned specializations.</p>
             </div>
 
             <div class="pathway-card reveal">
-              <div class="pathway-icon">🔬</div>
+              <div class="pathway-icon"><svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3h6"/><path d="M10 3v6l-4 7a3 3 0 0 0 2.6 4.5h6.8A3 3 0 0 0 18 16l-4-7V3"/></svg></div>
               <h3>Doctoral Research</h3>
               <p>PhD programs offering opportunities to contribute original research while collaborating with international institutions and industry.</p>
             </div>
 
             <div class="pathway-card reveal">
-              <div class="pathway-icon">💼</div>
+              <div class="pathway-icon"><svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="12" rx="2"/><path d="M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/><path d="M3 12h18"/></svg></div>
               <h3>Executive Programs</h3>
               <p>Part-time and weekend programs for working professionals seeking skill enhancement and career advancement credentials.</p>
             </div>
 
             <div class="pathway-card reveal">
-              <div class="pathway-icon">🎯</div>
+              <div class="pathway-icon"><svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="1"/></svg></div>
               <h3>Academic Support & Mentoring</h3>
               <p>Comprehensive support services including tutoring, writing labs, counseling, and personalized academic advising.</p>
             </div>
 
             <div class="pathway-card reveal">
-              <div class="pathway-icon">🌐</div>
+              <div class="pathway-icon"><svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a13 13 0 0 1 0 18"/><path d="M12 3a13 13 0 0 0 0 18"/></svg></div>
               <h3>Global Exchange Programs</h3>
               <p>Study abroad opportunities and international exchange programs with partner universities across five continents.</p>
             </div>
