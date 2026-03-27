@@ -318,20 +318,27 @@
 
     if (logoLink) {
       logoLink.addEventListener("click", (event) => {
+        if (
+          event.defaultPrevented ||
+          event.button !== 0 ||
+          event.metaKey ||
+          event.ctrlKey ||
+          event.shiftKey ||
+          event.altKey
+        ) {
+          return;
+        }
+
+        event.preventDefault();
+
         try {
           window.sessionStorage.setItem(FORCE_SPLASH_KEY, "1");
         } catch (_error) {
           // Ignore session storage access issues in strict browser modes.
         }
 
-        if (document.body.dataset.page !== "home") return;
-
-        event.preventDefault();
-        const aboutSection = document.getElementById("about");
-        if (aboutSection) {
-          aboutSection.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
-        window.dispatchEvent(new Event("ciu:force-splash"));
+        const splashUrl = `index.html?logoSplash=${Date.now()}#about`;
+        window.location.assign(splashUrl);
       });
     }
 
@@ -695,16 +702,29 @@
     const originalTitle = (title.textContent || "").trim();
     if (!originalTitle) return;
 
-    const getForcedSplashRequest = () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const forcedByUrl = urlParams.has("logoSplash");
+
+    const consumeForcedSplashRequest = () => {
+      let forcedByStorage = false;
       try {
-        const forced = window.sessionStorage.getItem(FORCE_SPLASH_KEY) === "1";
-        if (forced) {
+        forcedByStorage = window.sessionStorage.getItem(FORCE_SPLASH_KEY) === "1";
+        if (forcedByStorage) {
           window.sessionStorage.removeItem(FORCE_SPLASH_KEY);
         }
-        return forced;
       } catch (_error) {
-        return false;
+        forcedByStorage = false;
       }
+
+      if (forcedByUrl && typeof window.history.replaceState === "function") {
+        urlParams.delete("logoSplash");
+        const query = urlParams.toString();
+        const hash = window.location.hash || "";
+        const cleanUrl = `${window.location.pathname}${query ? `?${query}` : ""}${hash}`;
+        window.history.replaceState(null, "", cleanUrl);
+      }
+
+      return forcedByStorage || forcedByUrl;
     };
 
     const splitTitleIntoWords = () => {
@@ -813,7 +833,7 @@
     triggerWhenVisible();
     scheduleFallbackReveal();
 
-    if (getForcedSplashRequest()) {
+    if (consumeForcedSplashRequest()) {
       const aboutSection = document.getElementById("about");
       if (aboutSection) {
         aboutSection.scrollIntoView({ behavior: "smooth", block: "start" });
