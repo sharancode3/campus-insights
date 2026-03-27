@@ -482,11 +482,11 @@
         function updateParallax() {
           scrollY = window.scrollY;
           
-          // Calculate parallax offset (slower than scroll speed)
+          // Calculate parallax offset (slower than scroll speed) - REVERSED for upward movement
           const offset = scrollY * 0.5;
           
-          // Apply smooth transform with parallax effect
-          heroMedia.style.transform = `translateY(${offset}px)`;
+          // Apply smooth transform with parallax effect - negative offset makes video move UP
+          heroMedia.style.transform = `translateY(-${offset}px)`;
           
           // Adjust video scale slightly based on scroll
           const scale = 1 + (scrollY * 0.0001);

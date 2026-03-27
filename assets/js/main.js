@@ -374,6 +374,50 @@
     }, 4000);
   }
 
+  function setupImageCarousel() {
+    const carousel = document.querySelector(".image-carousel");
+    if (!carousel) return;
+
+    const slides = Array.from(document.querySelectorAll(".carousel-slide"));
+    const dots = Array.from(document.querySelectorAll(".carousel-dot"));
+    if (!slides.length || !dots.length) return;
+
+    let currentIndex = 0;
+    const rotationInterval = 3000; // 3 seconds
+
+    const showSlide = (index) => {
+      currentIndex = index % slides.length;
+      slides.forEach((slide, idx) => {
+        slide.classList.toggle("active", idx === currentIndex);
+      });
+      dots.forEach((dot, idx) => {
+        dot.classList.toggle("active", idx === currentIndex);
+      });
+    };
+
+    // Auto-rotate carousel
+    const autoRotate = setInterval(() => {
+      showSlide(currentIndex + 1);
+    }, rotationInterval);
+
+    // Click handlers for dots
+    dots.forEach((dot, idx) => {
+      dot.addEventListener("click", () => {
+        showSlide(idx);
+        clearInterval(autoRotate);
+        // Restart auto-rotation after user interaction
+        setTimeout(() => {
+          const newAutoRotate = setInterval(() => {
+            showSlide((idx + 1) % slides.length);
+          }, rotationInterval);
+        }, rotationInterval);
+      });
+    });
+
+    // Show first slide initially
+    showSlide(0);
+  }
+
   function init() {
     buildNav();
     buildFooter();
@@ -384,6 +428,7 @@
     setupReveals();
     setupCounters();
     setupTestimonials();
+    setupImageCarousel();
   }
 
   document.addEventListener("DOMContentLoaded", init);

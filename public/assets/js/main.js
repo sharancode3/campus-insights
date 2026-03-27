@@ -7,12 +7,14 @@
       label: "Academics",
       href: "academics.html",
       submenu: [
-        { label: "Civil Engineering", href: "academics.html?dept=civil" },
-        { label: "Mechanical Engineering", href: "academics.html?dept=mechanical" },
-        { label: "Electrical Engineering", href: "academics.html?dept=electrical" },
-        { label: "Electronics Engineering", href: "academics.html?dept=electronics" },
-        { label: "Computer Science", href: "academics.html?dept=cse" },
-        { label: "Chemical Engineering", href: "academics.html?dept=chemical" }
+        { label: "Civil Engineering", href: "dept-civil.html" },
+        { label: "Mechanical Engineering", href: "dept-mechanical.html" },
+        { label: "Electrical Engineering", href: "dept-electrical.html" },
+        { label: "Electronics Engineering", href: "dept-electronics.html" },
+        { label: "Computer Science", href: "dept-cse.html" },
+        { label: "Chemical Engineering", href: "dept-chemical.html" },
+        { label: "Aerospace Engineering", href: "dept-aerospace.html" },
+        { label: "Machine Learning (AI & ML)", href: "dept-ml.html" }
       ]
     },
     {
@@ -28,7 +30,6 @@
       ]
     },
     { id: "departments", label: "Departments", href: "departments.html" },
-    { id: "placements", label: "Placements", href: "placements.html" },
     {
       id: "research",
       label: "Research",
@@ -37,12 +38,39 @@
         { label: "Research Centers", href: "research.html?section=centers" },
         { label: "Publications", href: "research.html?section=publications" },
         { label: "Projects", href: "research.html?section=projects" },
-        { label: "Collaborations", href: "research.html?section=collaborations" }
+        { label: "Collaborations", href: "research.html?section=collaborations" },
+        { label: "DST-FIST", href: "research.html?section=dstfist" }
       ]
     },
-    { id: "campus-life", label: "Campus Life", href: "campus-life.html" },
-    { id: "students", label: "Students", href: "students.html" },
-    { id: "alumni", label: "Alumni", href: "alumni.html" },
+    {
+      id: "innovation",
+      label: "Innovation",
+      href: "innovation.html",
+      submenu: [
+        { label: "Innovation Labs", href: "innovation.html?section=labs" },
+        { label: "Entrepreneurship", href: "innovation.html?section=entrepreneur" },
+        { label: "Incubation Center", href: "innovation.html?section=incubation" },
+        { label: "Patents & IP", href: "innovation.html?section=patents" }
+      ]
+    },
+    {
+      id: "skill-labs",
+      label: "Skill Labs",
+      href: "skill-labs.html",
+      submenu: [
+        { label: "AI & ML Lab", href: "skill-labs.html?lab=ai-ml" },
+        { label: "IoT Lab", href: "skill-labs.html?lab=iot" },
+        { label: "Robotics Lab", href: "skill-labs.html?lab=robotics" },
+        { label: "Design Lab", href: "skill-labs.html?lab=design" },
+        { label: "Electronics Lab", href: "skill-labs.html?lab=electronics" }
+      ]
+    },
+    { id: "coe", label: "COE", href: "coe.html" },
+    { id: "teqip", label: "TEQIP", href: "teqip.html" },
+    { id: "facilities", label: "Facilities", href: "facilities.html" },
+    { id: "placements", label: "Placements", href: "placements.html" },
+    { id: "documents", label: "Documents", href: "documents.html" },
+    { id: "activities", label: "Activities", href: "activities.html" },
     { id: "contact", label: "Contact", href: "contact.html" }
   ];
 
@@ -346,6 +374,50 @@
     }, 4000);
   }
 
+  function setupImageCarousel() {
+    const carousel = document.querySelector(".image-carousel");
+    if (!carousel) return;
+
+    const slides = Array.from(document.querySelectorAll(".carousel-slide"));
+    const dots = Array.from(document.querySelectorAll(".carousel-dot"));
+    if (!slides.length || !dots.length) return;
+
+    let currentIndex = 0;
+    const rotationInterval = 3000; // 3 seconds
+
+    const showSlide = (index) => {
+      currentIndex = index % slides.length;
+      slides.forEach((slide, idx) => {
+        slide.classList.toggle("active", idx === currentIndex);
+      });
+      dots.forEach((dot, idx) => {
+        dot.classList.toggle("active", idx === currentIndex);
+      });
+    };
+
+    // Auto-rotate carousel
+    const autoRotate = setInterval(() => {
+      showSlide(currentIndex + 1);
+    }, rotationInterval);
+
+    // Click handlers for dots
+    dots.forEach((dot, idx) => {
+      dot.addEventListener("click", () => {
+        showSlide(idx);
+        clearInterval(autoRotate);
+        // Restart auto-rotation after user interaction
+        setTimeout(() => {
+          const newAutoRotate = setInterval(() => {
+            showSlide((idx + 1) % slides.length);
+          }, rotationInterval);
+        }, rotationInterval);
+      });
+    });
+
+    // Show first slide initially
+    showSlide(0);
+  }
+
   function init() {
     buildNav();
     buildFooter();
@@ -356,6 +428,7 @@
     setupReveals();
     setupCounters();
     setupTestimonials();
+    setupImageCarousel();
   }
 
   document.addEventListener("DOMContentLoaded", init);
