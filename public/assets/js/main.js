@@ -34,7 +34,6 @@
         { label: "Application Portal", href: "admissions.html?type=apply" }
       ]
     },
-    { id: "departments", label: "Departments", href: "departments.html" },
     {
       id: "research",
       label: "Research",
@@ -58,23 +57,8 @@
         { label: "Patents & IP", href: "innovation.html?section=patents" }
       ]
     },
-    {
-      id: "skill-labs",
-      label: "Skill Labs",
-      href: "skill-labs.html",
-      submenu: [
-        { label: "AI & ML Lab", href: "skill-labs.html?lab=ai-ml" },
-        { label: "IoT Lab", href: "skill-labs.html?lab=iot" },
-        { label: "Robotics Lab", href: "skill-labs.html?lab=robotics" },
-        { label: "Design Lab", href: "skill-labs.html?lab=design" },
-        { label: "Electronics Lab", href: "skill-labs.html?lab=electronics" }
-      ]
-    },
-    { id: "coe", label: "COE", href: "coe.html" },
-    { id: "teqip", label: "TEQIP", href: "teqip.html" },
     { id: "facilities", label: "Facilities", href: "facilities.html" },
     { id: "placements", label: "Placements", href: "placements.html" },
-    { id: "documents", label: "Documents", href: "documents.html" },
     { id: "activities", label: "Activities", href: "activities.html" },
     { id: "contact", label: "Contact", href: "contact.html" }
   ];
@@ -157,6 +141,74 @@
         <nav aria-label="Mobile">${mobileLinks}<a class="apply-btn" href="admissions.html">Apply Now</a></nav>
       </aside>
     `;
+
+    const desktopLinks = root.querySelector(".nav-links");
+    const desktopItems = desktopLinks ? Array.from(desktopLinks.querySelectorAll(".nav-item")) : [];
+
+    function setupDesktopNavStepScroll() {
+      if (!desktopLinks || desktopItems.length === 0) return;
+
+      const hasOverflow = () => desktopLinks.scrollWidth > desktopLinks.clientWidth + 2;
+
+      const updateOverflowState = () => {
+        const overflowing = hasOverflow();
+        desktopLinks.classList.toggle("is-overflowing", overflowing);
+        if (!overflowing) {
+          desktopLinks.scrollLeft = 0;
+        }
+      };
+
+      const getCurrentIndex = () => {
+        const currentLeft = desktopLinks.scrollLeft + 2;
+        let index = 0;
+        for (let i = 0; i < desktopItems.length; i += 1) {
+          if (desktopItems[i].offsetLeft <= currentLeft) {
+            index = i;
+          } else {
+            break;
+          }
+        }
+        return index;
+      };
+
+      const scrollToItem = (index) => {
+        const boundedIndex = Math.max(0, Math.min(index, desktopItems.length - 1));
+        const target = desktopItems[boundedIndex];
+        if (!target) return;
+
+        desktopLinks.scrollTo({
+          left: Math.max(0, target.offsetLeft - 12),
+          behavior: "smooth"
+        });
+      };
+
+      desktopLinks.addEventListener(
+        "wheel",
+        (event) => {
+          if (!hasOverflow()) return;
+          if (Math.abs(event.deltaY) <= Math.abs(event.deltaX)) return;
+
+          event.preventDefault();
+          const direction = event.deltaY > 0 ? 1 : -1;
+          scrollToItem(getCurrentIndex() + direction);
+        },
+        { passive: false }
+      );
+
+      const activeLink = desktopLinks.querySelector(".nav-link.is-active");
+      if (activeLink) {
+        const activeItem = activeLink.closest(".nav-item");
+        const activeIndex = desktopItems.indexOf(activeItem);
+        if (activeIndex >= 0) {
+          scrollToItem(activeIndex);
+        }
+      }
+
+      window.addEventListener("resize", updateOverflowState);
+      updateOverflowState();
+    }
+
+    setupDesktopNavStepScroll();
 
     // Add dropdown hover listeners
     document.querySelectorAll('.nav-item.has-submenu').forEach((item) => {

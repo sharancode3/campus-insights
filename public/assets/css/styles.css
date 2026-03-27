@@ -280,6 +280,21 @@ main {
   align-items: center;
   flex-wrap: nowrap;
   gap: 24px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  scroll-snap-type: x proximity;
+  padding-bottom: 2px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.nav-links::-webkit-scrollbar {
+  display: none;
+}
+
+.nav-links.is-overflowing {
+  cursor: ew-resize;
 }
 
 .nav-link {
@@ -426,6 +441,8 @@ main {
   position: relative;
   display: inline-flex;
   align-items: center;
+  flex: 0 0 auto;
+  scroll-snap-align: start;
 }
 
 .nav-item.has-submenu > .nav-link {
