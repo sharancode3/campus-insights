@@ -280,10 +280,9 @@ main {
   align-items: center;
   flex-wrap: nowrap;
   gap: 24px;
-  overflow-x: auto;
-  overflow-y: hidden;
+  overflow: visible;
   scroll-behavior: smooth;
-  scroll-snap-type: x proximity;
+  scroll-snap-type: none;
   padding-bottom: 2px;
   scrollbar-width: none;
   -ms-overflow-style: none;
