@@ -1,0 +1,475 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Innovation | Campus Insights University</title>
+    <meta
+      name="description"
+      content="Innovation ecosystem at Campus Insights University including labs, entrepreneurship, incubation, and intellectual property outcomes."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&family=Space+Grotesk:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <style>
+      .innovation-shell {
+        width: min(100%, 1152px);
+        margin: 0 auto;
+      }
+
+      .innovation-hero {
+        padding-top: 160px;
+        padding-bottom: 88px;
+      }
+
+      .innovation-hero h1,
+      .innovation-hero p {
+        animation: innovationFadeIn 700ms var(--ease) both;
+      }
+
+      .innovation-hero p {
+        animation-delay: 90ms;
+      }
+
+      @keyframes innovationFadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .innovation-nav {
+        position: sticky;
+        top: 76px;
+        z-index: 900;
+        padding: 12px 0;
+        border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+        background: color-mix(in srgb, var(--surface) 86%, transparent);
+        backdrop-filter: blur(14px);
+      }
+
+      .innovation-nav-track {
+        display: flex;
+        gap: 10px;
+        overflow-x: auto;
+        scrollbar-width: none;
+        white-space: nowrap;
+      }
+
+      .innovation-nav-track::-webkit-scrollbar {
+        display: none;
+      }
+
+      .innovation-nav-link {
+        display: inline-flex;
+        align-items: center;
+        padding: 8px 14px;
+        border: 1px solid var(--gold-border);
+        border-radius: 999px;
+        font-size: 0.74rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        transition: all 260ms var(--ease);
+      }
+
+      .innovation-nav-link:hover,
+      .innovation-nav-link.is-active {
+        color: var(--gold);
+        border-color: var(--gold);
+        background: var(--gold-dim);
+      }
+
+      .innovation-section {
+        padding: 92px 0;
+      }
+
+      .section-head {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      .section-head p {
+        margin: 12px auto 0;
+        max-width: 760px;
+        color: var(--text-muted);
+      }
+
+      .innovation-grid {
+        display: grid;
+        gap: 22px;
+      }
+
+      .innovation-grid.two {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .innovation-grid.three {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .innovation-grid.four {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .innovation-card {
+        height: 100%;
+        border: 1px solid var(--gold-border);
+        border-radius: 14px;
+        padding: 22px;
+        background: linear-gradient(165deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.015));
+        display: flex;
+        flex-direction: column;
+        gap: 11px;
+        transition: transform 280ms var(--ease), border-color 280ms var(--ease), box-shadow 280ms var(--ease), background-color 280ms var(--ease);
+      }
+
+      .innovation-card:hover {
+        transform: translateY(-6px);
+        border-color: rgba(201, 169, 110, 0.7);
+        box-shadow: var(--shadow-gold);
+        background: linear-gradient(165deg, rgba(201, 169, 110, 0.12), rgba(255, 255, 255, 0.02));
+      }
+
+      .icon-wrap {
+        width: 42px;
+        height: 42px;
+        border-radius: 10px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid rgba(201, 169, 110, 0.44);
+        background: rgba(201, 169, 110, 0.1);
+      }
+
+      .ri-icon {
+        width: 20px;
+        height: 20px;
+        stroke: var(--gold);
+        fill: none;
+        stroke-width: 1.9;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .card-subtitle {
+        margin: 0;
+        color: var(--gold);
+        font-size: 0.75rem;
+        letter-spacing: 0.11em;
+        text-transform: uppercase;
+      }
+
+      .card-title {
+        margin: 0;
+        color: var(--text-primary);
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.35rem;
+        line-height: 1.16;
+      }
+
+      .card-text {
+        margin: 0;
+        color: var(--text-muted);
+        line-height: 1.66;
+      }
+
+      .meta-line {
+        margin-top: auto;
+        padding-top: 10px;
+        border-top: 1px solid var(--border);
+        font-size: 0.82rem;
+        color: var(--gold);
+      }
+
+      .stat-card {
+        justify-content: center;
+      }
+
+      .stat-value {
+        margin: 0;
+        color: var(--gold);
+        font-family: "Space Grotesk", sans-serif;
+        font-size: clamp(1.7rem, 2.4vw, 2.2rem);
+        line-height: 1.1;
+      }
+
+      .stat-label {
+        margin: 0;
+        color: var(--text-muted);
+        font-size: 0.82rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      @media (max-width: 1140px) {
+        .innovation-grid.four {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .innovation-grid.three {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 860px) {
+        .innovation-hero {
+          padding-top: 130px;
+          padding-bottom: 70px;
+        }
+
+        .innovation-section {
+          padding: 72px 0;
+        }
+
+        .innovation-grid.two,
+        .innovation-grid.three,
+        .innovation-grid.four {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body data-page="innovation">
+    <div data-nav></div>
+    <main>
+      <header class="page-header innovation-hero">
+        <div class="container innovation-shell">
+          <p class="section-label">Innovation Ecosystem</p>
+          <h1>Innovation That Translates Ideas Into Deployable Impact</h1>
+          <p>
+            Campus Insights University builds an end-to-end innovation pipeline through multidisciplinary labs,
+            entrepreneurial mentoring, incubation support, and intellectual property development.
+          </p>
+        </div>
+      </header>
+
+      <section class="innovation-nav">
+        <div class="container innovation-shell">
+          <nav class="innovation-nav-track" aria-label="Innovation Section Navigation">
+            <a class="innovation-nav-link" href="#overview">Overview</a>
+            <a class="innovation-nav-link" href="#labs">Innovation Labs</a>
+            <a class="innovation-nav-link" href="#entrepreneur">Entrepreneurship</a>
+            <a class="innovation-nav-link" href="#incubation">Incubation Center</a>
+            <a class="innovation-nav-link" href="#patents">Patents and IP</a>
+          </nav>
+        </div>
+      </section>
+
+      <section class="innovation-section" id="overview">
+        <div class="container innovation-shell">
+          <div class="section-head reveal">
+            <p class="section-label">Innovation Overview</p>
+            <h2 class="section-title">A Structured Innovation System</h2>
+            <p>
+              Our innovation model integrates academic research, prototyping support, startup acceleration, and IP mentoring to transform
+              student and faculty ideas into validated solutions.
+            </p>
+          </div>
+
+          <div class="innovation-grid four">
+            <article class="innovation-card stat-card reveal">
+              <p class="stat-value">40+</p>
+              <p class="stat-label">Innovation Projects</p>
+            </article>
+            <article class="innovation-card stat-card reveal">
+              <p class="stat-value">25+</p>
+              <p class="stat-label">Startup Teams Mentored</p>
+            </article>
+            <article class="innovation-card stat-card reveal">
+              <p class="stat-value">15+</p>
+              <p class="stat-label">Industry Mentors</p>
+            </article>
+            <article class="innovation-card stat-card reveal">
+              <p class="stat-value">90+</p>
+              <p class="stat-label">Patent and IP Filings</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="innovation-section" id="labs">
+        <div class="container innovation-shell">
+          <div class="section-head reveal">
+            <p class="section-label">Innovation Labs</p>
+            <h2 class="section-title">Hands-On Labs for Prototyping and Validation</h2>
+          </div>
+
+          <div class="innovation-grid three">
+            <article class="innovation-card reveal">
+              <span class="icon-wrap"><svg class="ri-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="12" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="18" cy="18" r="2"/><path d="M8 12h6M16.6 7.4l-3.2 3.2M13.4 13.4l3.2 3.2"/></svg></span>
+              <p class="card-subtitle">AI and Data Lab</p>
+              <h3 class="card-title">Intelligent Systems Studio</h3>
+              <p class="card-text">Experimentation space for machine learning applications, optimization tools, and analytics workflows.</p>
+              <p class="meta-line">Focus: AI, Data Platforms, Model Validation</p>
+            </article>
+            <article class="innovation-card reveal">
+              <span class="icon-wrap"><svg class="ri-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="2"/><path d="M10 1v3M14 1v3M10 20v3M14 20v3M20 10h3M20 14h3M1 10h3M1 14h3"/></svg></span>
+              <p class="card-subtitle">Embedded Lab</p>
+              <h3 class="card-title">IoT and Hardware Prototyping</h3>
+              <p class="card-text">Rapid prototyping for embedded controllers, edge devices, and communication modules.</p>
+              <p class="meta-line">Focus: IoT, Embedded, Sensor Systems</p>
+            </article>
+            <article class="innovation-card reveal">
+              <span class="icon-wrap"><svg class="ri-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.7 6.3a3 3 0 0 0 3.9 3.9l-8.3 8.3a2 2 0 1 1-2.8-2.8z"/><path d="M16 4l4 4"/></svg></span>
+              <p class="card-subtitle">Design and Build Lab</p>
+              <h3 class="card-title">Mechanical Fabrication Bay</h3>
+              <p class="card-text">Fabrication support for mechanisms, product design iterations, and applied engineering testing.</p>
+              <p class="meta-line">Focus: Design, Build, Testing</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="innovation-section" id="entrepreneur">
+        <div class="container innovation-shell">
+          <div class="section-head reveal">
+            <p class="section-label">Entrepreneurship</p>
+            <h2 class="section-title">From Problem Statements to Venture Models</h2>
+            <p>
+              Students and faculty teams receive structured mentoring in business model design, product strategy,
+              customer validation, and pitch readiness.
+            </p>
+          </div>
+
+          <div class="innovation-grid two">
+            <article class="innovation-card reveal">
+              <p class="card-subtitle">Program Tracks</p>
+              <h3 class="card-title">Innovation and Startup Pathways</h3>
+              <p class="card-text">Teams progress through ideation, proof-of-concept, pilot deployment, and market readiness stages.</p>
+              <p class="meta-line">Tracks: Student Founders, Faculty Startups, Deep-Tech Teams</p>
+            </article>
+            <article class="innovation-card reveal">
+              <p class="card-subtitle">Mentorship Network</p>
+              <h3 class="card-title">Industry and Alumni Mentors</h3>
+              <p class="card-text">Mentor pool supports product direction, business viability, compliance, and fundraising preparedness.</p>
+              <p class="meta-line">Support: Domain Mentoring, Pitch Clinics, Market Strategy</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="innovation-section" id="incubation">
+        <div class="container innovation-shell">
+          <div class="section-head reveal">
+            <p class="section-label">Incubation Center</p>
+            <h2 class="section-title">Institutional Support for Emerging Ventures</h2>
+          </div>
+
+          <div class="innovation-grid three">
+            <article class="innovation-card reveal">
+              <h3 class="card-title">Pre-Incubation Support</h3>
+              <p class="card-text">Problem framing workshops, customer interviews, and MVP planning for early-stage teams.</p>
+              <p class="meta-line">Stage: Idea to Proof-of-Concept</p>
+            </article>
+            <article class="innovation-card reveal">
+              <h3 class="card-title">Incubation Programs</h3>
+              <p class="card-text">Workspace, technical mentorship, legal guidance, and pilot partnerships for startup cohorts.</p>
+              <p class="meta-line">Stage: Prototype to Pilot</p>
+            </article>
+            <article class="innovation-card reveal">
+              <h3 class="card-title">Scale-Up Facilitation</h3>
+              <p class="card-text">Investor connects, partner demos, and growth planning support for validated innovations.</p>
+              <p class="meta-line">Stage: Pilot to Growth</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="innovation-section" id="patents">
+        <div class="container innovation-shell">
+          <div class="section-head reveal">
+            <p class="section-label">Patents and IP</p>
+            <h2 class="section-title">Protecting Innovation Through Structured IPR Support</h2>
+          </div>
+
+          <div class="innovation-grid three">
+            <article class="innovation-card reveal">
+              <p class="card-subtitle">IP Example</p>
+              <h3 class="card-title">Adaptive EV Charging Controller</h3>
+              <p class="card-text">Control strategy for dynamic load balancing and battery-health-aware charging decisions.</p>
+              <p class="meta-line">Status: Filed | Domain: Mobility Systems</p>
+            </article>
+            <article class="innovation-card reveal">
+              <p class="card-subtitle">IP Example</p>
+              <h3 class="card-title">AI-Based Resource Optimization Engine</h3>
+              <p class="card-text">Optimization engine for multi-constraint planning in industrial and logistics operations.</p>
+              <p class="meta-line">Status: Filed | Domain: AI Systems</p>
+            </article>
+            <article class="innovation-card reveal">
+              <p class="card-subtitle">IP Example</p>
+              <h3 class="card-title">Automated Waste Segregation Pipeline</h3>
+              <p class="card-text">Vision-assisted material classification and process-control architecture for waste management.</p>
+              <p class="meta-line">Status: Filed | Domain: Sustainability</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section cta">
+        <div class="container innovation-shell">
+          <p class="section-label">Innovation Office</p>
+          <h2>Build, Validate, and Scale Your Innovation</h2>
+          <p>Connect with the innovation team for lab access, startup mentoring, incubation support, and IP assistance.</p>
+          <div class="cta-actions">
+            <a class="btn-primary" href="contact.html">Contact Innovation Office</a>
+            <a class="btn-ghost" href="research.html">Explore Research Portal</a>
+          </div>
+        </div>
+      </section>
+    </main>
+    <div data-footer></div>
+    <script src="assets/js/main.js"></script>
+    <script>
+      (function () {
+        const param = new URLSearchParams(window.location.search).get("section");
+        const allowed = ["overview", "labs", "entrepreneur", "incubation", "patents"];
+        if (param && allowed.includes(param)) {
+          const target = document.getElementById(param);
+          if (target) {
+            window.requestAnimationFrame(() => {
+              target.scrollIntoView({ behavior: "smooth", block: "start" });
+            });
+          }
+        }
+
+        const links = Array.from(document.querySelectorAll(".innovation-nav-link"));
+        const sections = links
+          .map((l) => document.querySelector(l.getAttribute("href")))
+          .filter(Boolean);
+
+        const setActive = (id) => {
+          links.forEach((link) => {
+            const match = link.getAttribute("href") === `#${id}`;
+            link.classList.toggle("is-active", match);
+          });
+        };
+
+        if (sections.length) {
+          const observer = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                  setActive(entry.target.id);
+                }
+              });
+            },
+            { rootMargin: "-30% 0px -55% 0px", threshold: 0.1 }
+          );
+
+          sections.forEach((section) => observer.observe(section));
+          setActive("overview");
+        }
+      })();
+    </script>
+  </body>
+</html>
