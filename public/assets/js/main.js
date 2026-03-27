@@ -337,6 +337,16 @@
           // Ignore session storage access issues in strict browser modes.
         }
 
+        if (document.body.dataset.page === "home") {
+          const aboutSection = document.getElementById("about");
+          if (aboutSection) {
+            aboutSection.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+
+          window.dispatchEvent(new Event("ciu:force-splash"));
+          return;
+        }
+
         const splashUrl = `index.html?logoSplash=${Date.now()}#about`;
         window.location.assign(splashUrl);
       });
