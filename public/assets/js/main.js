@@ -500,6 +500,7 @@
     window.setTimeout(() => {
       loader.classList.add("is-hidden");
       document.body.classList.add("ready");
+      window.dispatchEvent(new Event("ciu:loader-hidden"));
     }, 2100);
   }
 
@@ -809,6 +810,33 @@
       window.setTimeout(runAnimation, 80);
     };
 
+    const replayAfterLoaderIfNeeded = () => {
+      const runSequence = () => {
+        const aboutSection = document.getElementById("about");
+        if (aboutSection) {
+          aboutSection.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+        forceReplay();
+      };
+
+      const loader = document.querySelector(".loader");
+      const loaderActive = loader && !loader.classList.contains("is-hidden");
+      if (!loaderActive) {
+        window.setTimeout(runSequence, 120);
+        return;
+      }
+
+      let resolved = false;
+      const finish = () => {
+        if (resolved) return;
+        resolved = true;
+        runSequence();
+      };
+
+      window.addEventListener("ciu:loader-hidden", finish, { once: true });
+      window.setTimeout(finish, 2500);
+    };
+
     const triggerWhenVisible = () => {
       if (hasPlayedInView) return;
       const rect = motionBlock.getBoundingClientRect();
@@ -844,11 +872,7 @@
     scheduleFallbackReveal();
 
     if (consumeForcedSplashRequest()) {
-      const aboutSection = document.getElementById("about");
-      if (aboutSection) {
-        aboutSection.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
-      window.setTimeout(forceReplay, 140);
+      replayAfterLoaderIfNeeded();
     }
 
     const imageAsset = imageCard.querySelector(".intro-image-asset");
