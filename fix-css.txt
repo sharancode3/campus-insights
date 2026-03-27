@@ -1,0 +1,7 @@
+      .requirement-list li:before {
+        content: "✓";
+        color: var(--gold);
+        font-weight: bold;
+        font-size: 1.2em;
+        flex-shrink: 0;
+      }

@@ -78,6 +78,7 @@
     { id: "facilities", label: "Facilities", href: "facilities.html" },
     { id: "placements", label: "Placements", href: "placements.html" },
     { id: "activities", label: "Activities", href: "activities.html" },
+    { id: "clubs", label: "Clubs", href: "clubs.html" },
     { id: "contact", label: "Contact", href: "contact.html" }
   ];
 

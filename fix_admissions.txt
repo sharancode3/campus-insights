@@ -1,0 +1,9 @@
+This is a fix script. The admissions.html file has corrupted emoji characters that need to be replaced with proper UTF-8 emojis.
+
+Current corrupted icons showing as mojibake:
+- ðŸŎ" should be 🎓 (graduation cap)
+- ðŸ"š should be 📚 (books)
+- ðŸ"¬ should be 🔬 (microscope)
+- ðŸ'¼ should be 💼 (briefcase)
+- ðŸŌ should be 🌍 (globe)
+- ðŸ"– should be 📜 (scroll/diploma)
