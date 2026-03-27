@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Campus Insights University</title>
+    <meta
+      name="description"
+      content="Campus Insights University - Where Innovation Meets Excellence."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&family=Space+Grotesk:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+  </head>
+  <body data-page="home">
+    <div class="loader" aria-hidden="true">
+      <div class="loader-inner">
+        <h1 class="loader-logo">CIU</h1>
+        <div class="loader-line"></div>
+        <p class="loader-text">Entering Campus...</p>
+      </div>
+    </div>
+
+    <div data-nav></div>
+
+    <main>
+      <section class="hero" id="home">
+        <div class="hero-media">
+          <img
+            class="hero-poster"
+            src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=1920&q=80"
+            alt="Campus aerial view"
+            fetchpriority="high"
+          />
+          <video class="hero-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
+            <source src="assets/media/campus-drone.mp4" type="video/mp4" />
+          </video>
+          <div class="hero-overlay"></div>
+        </div>
+
+        <div class="hero-content container">
+          <div class="hero-content-inner">
+            <p class="hero-eyebrow anim-entry" style="--entry-delay: 0ms">Accredited - Ranked - Trusted</p>
+            <h1 class="hero-title">
+              <span class="line anim-entry" style="--entry-delay: 150ms">Campus Insights</span>
+              <span class="line anim-entry" style="--entry-delay: 280ms">University</span>
+            </h1>
+            <p class="hero-tagline anim-entry" style="--entry-delay: 450ms">Where Innovation Meets Excellence</p>
+            <p class="hero-sub anim-entry" style="--entry-delay: 580ms">
+              Shaping future leaders through world-class education, research, and opportunity.
+            </p>
+            <div class="hero-actions">
+              <a class="btn-primary anim-entry" style="--entry-delay: 730ms" href="#campus-life">Explore Campus -></a>
+              <a class="btn-ghost ghost-mobile-hide anim-entry" style="--entry-delay: 850ms" href="#testimonials">Watch Story</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-scroll anim-entry" style="--entry-delay: 1100ms">
+          <span class="hero-scroll-line"></span>
+          <span class="hero-scroll-text">Scroll</span>
+        </div>
+      </section>
+
+      <section class="stats-strip">
+        <div class="container stats-grid">
+          <article class="stat-item reveal fade">
+            <p class="stat-number" data-count="25000" data-suffix="+">0</p>
+            <p class="stat-label">Students</p>
+          </article>
+          <article class="stat-item reveal fade">
+            <p class="stat-number" data-count="150" data-suffix="+">0</p>
+            <p class="stat-label">Programs</p>
+          </article>
+          <article class="stat-item reveal fade">
+            <p class="stat-number" data-count="98" data-suffix="%">0</p>
+            <p class="stat-label">Placement Rate</p>
+          </article>
+          <article class="stat-item reveal fade">
+            <p class="stat-number" data-count="50" data-suffix="+">0</p>
+            <p class="stat-label">Years Of Excellence</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="about">
+        <div class="container intro-grid">
+          <div class="intro-copy reveal" style="transform: translateX(-28px)">
+            <p class="section-label">About The University</p>
+            <h2>A Legacy of Excellence Since 1972</h2>
+            <p>
+              Campus Insights University has grown from a regional institute into a globally respected university known for rigorous academics,
+              impactful research, and a culture of purpose-driven leadership.
+            </p>
+            <p>
+              Our interdisciplinary ecosystem connects engineering, medicine, design, law, and management to solve real-world challenges with
+              measurable impact and long-term societal value.
+            </p>
+            <p>
+              Every student journey is shaped by mentorship, global collaborations, and experiential learning spaces designed to turn ambition into
+              action.
+            </p>
+            <a class="inline-link" href="about.html">Learn More About Us -></a>
+          </div>
+          <figure class="intro-image reveal fade">
+            <img
+              src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1200&q=80"
+              alt="Campus building"
+              loading="lazy"
+            />
+          </figure>
+        </div>
+      </section>
+
+      <section class="section" id="why-us">
+        <div class="container">
+          <p class="section-label reveal">Trust and Performance</p>
+          <h2 class="section-title reveal">Why Students Choose Us</h2>
+          <p class="reveal" style="color: var(--text-muted); margin-top: 1rem; max-width: 720px">
+            A university experience defined by outcomes, opportunity, and mentorship across every discipline.
+          </p>
+
+          <div class="choose-grid" data-stagger-group>
+            <article class="choose-card reveal" data-stagger>
+              <svg class="choose-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 17l7-7 4 4 7-7"/><path d="M14 7h7v7"/></svg>
+              <h3>Top Placements</h3>
+              <p>Career pathways built through strong recruiter partnerships and practical training from year one.</p>
+            </article>
+            <article class="choose-card reveal" data-stagger>
+              <svg class="choose-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1.1 6.2L12 17l-5.6 3 1.1-6.2L3 9.6l6.2-.9z"/></svg>
+              <h3>National Rankings</h3>
+              <p>Consistent recognition for academic rigor, employability, and industry-aligned curriculum.</p>
+            </article>
+            <article class="choose-card reveal" data-stagger>
+              <svg class="choose-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3v18"/><path d="M4 9h16"/><path d="M7 21h10"/></svg>
+              <h3>World-Class Faculty</h3>
+              <p>Educators and researchers with deep domain leadership and a strong student mentoring culture.</p>
+            </article>
+            <article class="choose-card reveal" data-stagger>
+              <svg class="choose-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 10l9-7 9 7v10H3z"/><path d="M9 21v-7h6v7"/></svg>
+              <h3>Modern Infrastructure</h3>
+              <p>Advanced labs, digital classrooms, innovation studios, and high-performance research centers.</p>
+            </article>
+            <article class="choose-card reveal" data-stagger>
+              <svg class="choose-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg>
+              <h3>Research Excellence</h3>
+              <p>Funded projects and publication opportunities that expose students to frontier-level discovery.</p>
+            </article>
+            <article class="choose-card reveal" data-stagger>
+              <svg class="choose-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12h16"/><path d="M12 4v16"/><circle cx="12" cy="12" r="9"/></svg>
+              <h3>Industry Connections</h3>
+              <p>Internships, capstone projects, and co-created curricula with leading global organizations.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="programs">
+        <div class="container">
+          <p class="section-label reveal">Academic Programs</p>
+          <h2 class="section-title reveal">Programs Built for Future Leaders</h2>
+          <div class="program-grid program-scroll" data-stagger-group>
+            <article class="program-card reveal" data-stagger>
+              <span class="program-shape"></span>
+              <h3 class="program-name">Engineering</h3>
+              <p>Advanced systems, design thinking, and industry-linked capstones.</p>
+              <span class="duration-badge">4 Years</span>
+              <a class="inline-link" href="departments.html">View Program -></a>
+            </article>
+            <article class="program-card reveal" data-stagger>
+              <span class="program-shape"></span>
+              <h3 class="program-name">MBA</h3>
+              <p>Leadership, analytics, and strategy for high-impact decision making.</p>
+              <span class="duration-badge">2 Years</span>
+              <a class="inline-link" href="departments.html">View Program -></a>
+            </article>
+            <article class="program-card reveal" data-stagger>
+              <span class="program-shape"></span>
+              <h3 class="program-name">Computer Science</h3>
+              <p>AI, software engineering, cybersecurity, and applied data science.</p>
+              <span class="duration-badge">4 Years</span>
+              <a class="inline-link" href="departments.html">View Program -></a>
+            </article>
+            <article class="program-card reveal" data-stagger>
+              <span class="program-shape"></span>
+              <h3 class="program-name">Law</h3>
+              <p>Policy, constitutional studies, and technology-focused legal practice.</p>
+              <span class="duration-badge">5 Years</span>
+              <a class="inline-link" href="departments.html">View Program -></a>
+            </article>
+            <article class="program-card reveal" data-stagger>
+              <span class="program-shape"></span>
+              <h3 class="program-name">Architecture</h3>
+              <p>Sustainable design, urban systems, and digital fabrication methods.</p>
+              <span class="duration-badge">5 Years</span>
+              <a class="inline-link" href="departments.html">View Program -></a>
+            </article>
+            <article class="program-card reveal" data-stagger>
+              <span class="program-shape"></span>
+              <h3 class="program-name">Medicine</h3>
+              <p>Integrated clinical training with simulation-driven learning pathways.</p>
+              <span class="duration-badge">5 Years</span>
+              <a class="inline-link" href="departments.html">View Program -></a>
+            </article>
+            <article class="program-card reveal" data-stagger>
+              <span class="program-shape"></span>
+              <h3 class="program-name">Design</h3>
+              <p>Human-centered design, visual communication, and product innovation.</p>
+              <span class="duration-badge">4 Years</span>
+              <a class="inline-link" href="departments.html">View Program -></a>
+            </article>
+            <article class="program-card reveal" data-stagger>
+              <span class="program-shape"></span>
+              <h3 class="program-name">Sciences</h3>
+              <p>Research-first science programs in biology, chemistry, and physics.</p>
+              <span class="duration-badge">3 Years</span>
+              <a class="inline-link" href="departments.html">View Program -></a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="campus-life">
+        <div class="container">
+          <p class="section-label reveal">Campus Life</p>
+          <h2 class="section-title reveal">An Experience Beyond the Classroom</h2>
+          <div class="mosaic-grid">
+            <figure class="mosaic-item large reveal fade">
+              <img src="https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?auto=format&fit=crop&w=1200&q=80" alt="Campus event" loading="lazy" />
+              <figcaption>Innovation Festival</figcaption>
+            </figure>
+            <figure class="mosaic-item reveal fade">
+              <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=900&q=80" alt="Student clubs" loading="lazy" />
+              <figcaption>Student Clubs</figcaption>
+            </figure>
+            <figure class="mosaic-item reveal fade">
+              <img src="https://images.unsplash.com/photo-1546519638-68e109acd27d?auto=format&fit=crop&w=900&q=80" alt="Sports" loading="lazy" />
+              <figcaption>Sports Culture</figcaption>
+            </figure>
+            <figure class="mosaic-item tall reveal fade">
+              <img src="https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?auto=format&fit=crop&w=900&q=80" alt="Campus architecture" loading="lazy" />
+              <figcaption>Campus Greenways</figcaption>
+            </figure>
+          </div>
+          <div class="highlight-tags reveal">
+            <span class="highlight-tag">100+ Clubs and Societies</span>
+            <span class="highlight-tag">National Level Sports</span>
+            <span class="highlight-tag">Annual Cultural Fest</span>
+          </div>
+          <a class="inline-link reveal" href="campus-life.html">Explore Campus Life -></a>
+        </div>
+      </section>
+
+      <section class="section placements" id="placements-home">
+        <div class="container placements-grid">
+          <div class="reveal">
+            <p class="section-label">Placements</p>
+            <p class="place-main" data-count="98" data-suffix="%">0%</p>
+            <p class="place-label">Placement Rate</p>
+            <p class="place-details">Avg. Package: INR 12 LPA<br />Highest: INR 45 LPA</p>
+          </div>
+          <div class="reveal">
+            <p class="section-label">Our Students Work At</p>
+            <div class="logo-grid">
+              <div class="logo-tile">Google</div><div class="logo-tile">Microsoft</div><div class="logo-tile">Amazon</div><div class="logo-tile">Adobe</div>
+              <div class="logo-tile">TCS</div><div class="logo-tile">Infosys</div><div class="logo-tile">Accenture</div><div class="logo-tile">Deloitte</div>
+              <div class="logo-tile">IBM</div><div class="logo-tile">Meta</div><div class="logo-tile">NVIDIA</div><div class="logo-tile">Flipkart</div>
+              <div class="logo-tile">KPMG</div><div class="logo-tile">EY</div><div class="logo-tile">JP Morgan</div><div class="logo-tile">Siemens</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section testimonials" id="testimonials">
+        <div class="container">
+          <p class="section-label reveal">Student Voices</p>
+          <h2 class="section-title reveal">Stories of Growth and Excellence</h2>
+          <div class="testimonial-track reveal fade">
+            <article class="testimonial active">
+              <p class="testimonial-quote">"The campus gave me opportunities I never imagined. From research labs to mentorship, every semester raised my confidence and capability."</p>
+              <div class="testimonial-avatar">
+                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=200&q=80" alt="Student testimonial" loading="lazy" />
+              </div>
+              <p class="testimonial-name">Aarohi Menon</p>
+              <p class="testimonial-meta">Computer Science, Class of 2025</p>
+            </article>
+            <article class="testimonial">
+              <p class="testimonial-quote">"Our design studios felt like real innovation labs. Faculty pushed us to solve practical problems with global relevance."</p>
+              <div class="testimonial-avatar">
+                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80" alt="Student testimonial" loading="lazy" />
+              </div>
+              <p class="testimonial-name">Rishabh Kapoor</p>
+              <p class="testimonial-meta">Architecture, Class of 2024</p>
+            </article>
+            <article class="testimonial">
+              <p class="testimonial-quote">"The placement support was exceptional. I moved from internship to a global role because of the university's industry network."</p>
+              <div class="testimonial-avatar">
+                <img src="https://images.unsplash.com/photo-1580894732444-8ecded7900cd?auto=format&fit=crop&w=200&q=80" alt="Student testimonial" loading="lazy" />
+              </div>
+              <p class="testimonial-name">Niharika Singh</p>
+              <p class="testimonial-meta">MBA, Class of 2023</p>
+            </article>
+          </div>
+          <div class="testimonial-dots reveal">
+            <button class="dot active" aria-label="Testimonial 1"></button>
+            <button class="dot" aria-label="Testimonial 2"></button>
+            <button class="dot" aria-label="Testimonial 3"></button>
+          </div>
+        </div>
+      </section>
+
+      <section class="section cta" id="apply">
+        <div class="container">
+          <p class="section-label">Your Journey Begins Here</p>
+          <h2>Ready to Shape Your Future?</h2>
+          <p>
+            Join a dynamic learning community designed for ambition, innovation, and real-world impact.
+          </p>
+          <div class="cta-actions">
+            <a class="btn-primary" href="admissions.html">Apply Now</a>
+            <a class="btn-ghost" href="#">Download Prospectus</a>
+          </div>
+          <p class="cta-small">Admissions open for 2025-26 batch</p>
+        </div>
+      </section>
+    </main>
+
+    <div data-footer></div>
+
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>
