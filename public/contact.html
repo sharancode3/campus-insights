@@ -454,7 +454,7 @@
               <p class="chatbot-note">
                 Use CIU assistant support for admission steps, office routing, and document guidance before contacting departments.
               </p>
-              <button class="chatbot-trigger" id="chatbotTrigger" type="button">Open Virtual Assistant</button>
+              <button class="chatbot-trigger" id="openAssistantBtn" type="button">Open Virtual Assistant</button>
               <p class="chatbot-note" id="chatbotStatus" aria-live="polite">Assistant status: ready</p>
             </article>
           </div>
@@ -474,18 +474,39 @@
       </section>
     </main>
     <div data-footer></div>
-    <script src="assets/js/main.js"></script>
-    <script>
-      (function () {
-        const trigger = document.getElementById("chatbotTrigger");
-        const status = document.getElementById("chatbotStatus");
-        if (!trigger || !status) return;
+    <div class="chatbot-widget" id="chatbotWidget">
+      <button class="chatbot-toggle" id="chatbotToggle" title="Open Virtual Assistant" aria-label="Open Virtual Assistant" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+        </svg>
+      </button>
 
-        trigger.addEventListener("click", function () {
-          status.textContent = "Assistant status: chatbot window requested, connect via support desk for live handoff.";
-        });
-      })();
-    </script>    <script src="assets/js/chatbot-data.js"></script>
+      <div id="chatbotContainer" class="chatbot-container chatbot-hidden" aria-hidden="true">
+        <div class="chatbot-header">
+          <div class="chatbot-header-text">
+            <h3>Campus Insights Assistant</h3>
+            <p>Ask anything about admissions, academics, facilities, or campus life.</p>
+          </div>
+          <button class="chatbot-header-close" id="chatbotClose" title="Minimize Assistant" aria-label="Close Assistant" type="button">x</button>
+        </div>
+
+        <div id="chatMessages" class="chatbot-messages" aria-live="polite"></div>
+
+        <div class="chatbot-suggestions" id="chatbotSuggestions" aria-label="Quick suggestions">
+          <button class="chatbot-suggestion-btn" type="button" data-query="How do I apply?">Admissions</button>
+          <button class="chatbot-suggestion-btn" type="button" data-query="Placement statistics">Placements</button>
+          <button class="chatbot-suggestion-btn" type="button" data-query="Academic calendar">Academics</button>
+          <button class="chatbot-suggestion-btn" type="button" data-query="Campus facilities">Facilities</button>
+        </div>
+
+        <div class="chatInputArea">
+          <input type="text" id="chatInput" placeholder="Ask something..." aria-label="Type your question" />
+          <button id="sendMessage" type="button">Send</button>
+        </div>
+      </div>
+    </div>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/chatbot-data.js"></script>
     <script src="assets/js/chatbot.js"></script>
   </body>
 </html>

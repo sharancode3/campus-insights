@@ -4,326 +4,308 @@
 
 class UniversityChatbot {
   constructor() {
+    this.apiEndpoint = "/api/chatbot";
     this.isOpen = false;
-    this.messageHistory = [];
-    this.suggestedQuestions = [
-      "What are the admission requirements?",
-      "Tell me about postgraduate programs",
-      "What are the placements statistics?",
-      "Where can I find campus facilities?",
+    this.greetingShown = false;
+    this.hasUserSentMessage = false;
+    this.typingIndicatorId = "chatTypingIndicator";
+    this.greetingMessage =
+      "Hello! 👋 Welcome to the Campus Insights Assistant.\nI can help you with admissions, courses, placements, facilities, and campus information.\nWhat would you like to know?";
+    this.predefinedResponses = [
+      {
+        keywords: ["how do i apply", "how to apply", "apply now", "application process", "admission process"],
+        reply:
+          "You can apply through the Admissions section of the portal. Navigate to Admissions -> Apply Now and fill the online form.",
+      },
+      {
+        keywords: ["placement statistics", "placement stat", "placements", "recruiter", "recruiters"],
+        reply: "Our placement statistics and recruiter list are available in the Placements section.",
+      },
+      {
+        keywords: ["academic calendar", "calendar", "semester dates", "exam schedule"],
+        reply: "You can find the academic calendar under the Academics section of the portal.",
+      },
+      {
+        keywords: ["campus facilities", "facilities", "labs", "library", "hostel", "sports complex"],
+        reply:
+          "Our campus offers modern labs, libraries, hostels, sports complexes, and innovation centers.",
+      },
+      {
+        keywords: ["student clubs", "clubs", "extracurricular", "activities"],
+        reply: "Student clubs and extracurricular activities are listed in the Clubs section of the website.",
+      },
     ];
     this.init();
   }
 
   init() {
-    // Inject chatbot HTML
-    this.injectChatbot();
+    this.ensureMarkup();
+    this.cacheDOM();
 
-    // Cache DOM elements
-    this.cachedDOM();
+    if (!this.widget || !this.container || !this.messages || !this.input || !this.sendButton) {
+      return;
+    }
 
-    // Bind events
     this.bindEvents();
-
-    // Show welcome message
-    this.showWelcomeMessage();
   }
 
-  injectChatbot() {
-    const chatbotHTML = `
-      <button class="chatbot-toggle" id="chatbot-toggle" title="Open Chat Assistant">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+  ensureMarkup() {
+    if (document.getElementById("chatbotWidget")) {
+      return;
+    }
+
+    const container = document.createElement("div");
+    container.className = "chatbot-widget";
+    container.id = "chatbotWidget";
+    container.innerHTML = `
+      <button class="chatbot-toggle" id="chatbotToggle" title="Open Virtual Assistant" aria-label="Open Virtual Assistant" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
         </svg>
       </button>
 
-      <div class="chatbot-window" id="chatbot-window">
+      <div id="chatbotContainer" class="chatbot-container chatbot-hidden" aria-hidden="true">
         <div class="chatbot-header">
-          <div class="chatbot-header-content">
-            <h3>Campus Assistant</h3>
-            <button class="chatbot-header-close" id="chatbot-close" title="Close Chat">×</button>
+          <div class="chatbot-header-text">
+            <h3>Campus Insights Assistant</h3>
+            <p>Ask anything about admissions, academics, facilities, or campus life.</p>
           </div>
+          <button class="chatbot-header-close" id="chatbotClose" title="Minimize Assistant" aria-label="Close Assistant" type="button">x</button>
         </div>
 
-        <div class="chatbot-messages" id="chatbot-messages"></div>
+        <div id="chatMessages" class="chatbot-messages" aria-live="polite"></div>
 
-        <div class="chatbot-input-area">
-          <textarea 
-            class="chatbot-input" 
-            id="chatbot-input" 
-            placeholder="Ask me anything..." 
-            rows="1"
-          ></textarea>
-          <button class="chatbot-send-btn" id="chatbot-send" title="Send Message">➤</button>
+        <div class="chatbot-suggestions" id="chatbotSuggestions" aria-label="Quick suggestions">
+          <button class="chatbot-suggestion-btn" type="button" data-query="How do I apply?">Admissions</button>
+          <button class="chatbot-suggestion-btn" type="button" data-query="Placement statistics">Placements</button>
+          <button class="chatbot-suggestion-btn" type="button" data-query="Academic calendar">Academics</button>
+          <button class="chatbot-suggestion-btn" type="button" data-query="Campus facilities">Facilities</button>
+        </div>
+
+        <div class="chatInputArea">
+          <input type="text" id="chatInput" placeholder="Ask something..." aria-label="Type your question" />
+          <button id="sendMessage" type="button">Send</button>
         </div>
       </div>
     `;
 
-    // Create container
-    const container = document.createElement("div");
-    container.className = "chatbot-widget";
-    container.innerHTML = chatbotHTML;
     document.body.appendChild(container);
   }
 
-  cachedDOM() {
-    this.toggle = document.getElementById("chatbot-toggle");
-    this.window = document.getElementById("chatbot-window");
-    this.closeBtn = document.getElementById("chatbot-close");
-    this.messagesContainer = document.getElementById("chatbot-messages");
-    this.input = document.getElementById("chatbot-input");
-    this.sendBtn = document.getElementById("chatbot-send");
+  cacheDOM() {
+    this.widget = document.getElementById("chatbotWidget");
+    this.toggleButton = document.getElementById("chatbotToggle");
+    this.container = document.getElementById("chatbotContainer");
+    this.messages = document.getElementById("chatMessages");
+    this.input = document.getElementById("chatInput");
+    this.sendButton = document.getElementById("sendMessage");
+    this.closeButton = document.getElementById("chatbotClose");
+    this.openAssistantButton = document.getElementById("openAssistantBtn");
+    this.statusText = document.getElementById("chatbotStatus");
+    this.suggestionsPanel = document.getElementById("chatbotSuggestions");
+    this.suggestionButtons = Array.from(document.querySelectorAll(".chatbot-suggestion-btn"));
   }
 
   bindEvents() {
-    this.toggle.addEventListener("click", () => this.toggleChat());
-    this.closeBtn.addEventListener("click", () => this.closeChat());
-    this.sendBtn.addEventListener("click", () => this.sendMessage());
-    this.input.addEventListener("keypress", (e) => {
-      if (e.key === "Enter" && !e.shiftKey) {
-        e.preventDefault();
-        this.sendMessage();
+    if (this.toggleButton) {
+      this.toggleButton.addEventListener("click", () => this.toggleChat());
+    }
+
+    if (this.openAssistantButton) {
+      this.openAssistantButton.addEventListener("click", () => this.openChat());
+    }
+
+    if (this.closeButton) {
+      this.closeButton.addEventListener("click", () => this.closeChat());
+    }
+
+    this.sendButton.addEventListener("click", () => this.handleSend());
+    this.input.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        this.handleSend();
       }
     });
 
-    // Auto-resize textarea
-    this.input.addEventListener("input", () => this.resizeTextarea());
+    this.suggestionButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const query = button.getAttribute("data-query");
+        if (!query) return;
+        this.input.value = query;
+        this.handleSend();
+      });
+    });
   }
 
   toggleChat() {
-    this.isOpen ? this.closeChat() : this.openChat();
+    if (this.isOpen) {
+      this.closeChat();
+      return;
+    }
+    this.openChat();
   }
 
   openChat() {
     this.isOpen = true;
-    this.window.classList.add("active");
-    this.toggle.classList.add("active");
+    this.container.style.display = "flex";
+    this.container.classList.remove("chatbot-hidden");
+    this.container.classList.add("chatbot-visible");
+    this.container.setAttribute("aria-hidden", "false");
+
+    if (this.toggleButton) {
+      this.toggleButton.classList.add("active");
+    }
+
+    this.syncStatus("Assistant status: online");
+
+    if (!this.greetingShown) {
+      this.addBotMessage(this.greetingMessage);
+      this.greetingShown = true;
+    }
+
     this.input.focus();
   }
 
   closeChat() {
     this.isOpen = false;
-    this.window.classList.remove("active");
-    this.toggle.classList.remove("active");
-  }
+    this.container.style.display = "none";
+    this.container.classList.remove("chatbot-visible");
+    this.container.classList.add("chatbot-hidden");
+    this.container.setAttribute("aria-hidden", "true");
 
-  showWelcomeMessage() {
-    setTimeout(() => {
-      this.addMessage(
-        "Hello! 👋 I'm the Campus Assistant. How can I help you explore our university today?",
-        "bot"
-      );
-
-      // Show suggested questions
-      setTimeout(() => this.showSuggestedQuestions(), 800);
-    }, 500);
-  }
-
-  showSuggestedQuestions() {
-    const container = document.createElement("div");
-    container.className = "chatbot-message bot";
-    container.innerHTML = `
-      <div class="message-content">
-        <p class="suggested-label">Suggested Questions:</p>
-        <div class="suggested-questions">
-          ${this.suggestedQuestions
-            .map(
-              (q) =>
-                `<button class="suggested-btn" data-question="${q}">${q}</button>`
-            )
-            .join("")}
-        </div>
-      </div>
-    `;
-
-    this.messagesContainer.appendChild(container);
-
-    // Bind suggested question buttons
-    container.querySelectorAll(".suggested-btn").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        this.autoSendQuestion(btn.getAttribute("data-question"));
-      });
-    });
-
-    this.scrollToBottom();
-  }
-
-  autoSendQuestion(question) {
-    // Clear suggested questions
-    const suggestedSection = this.messagesContainer.querySelector(".suggested-questions")
-      ?.parentElement?.parentElement;
-    if (suggestedSection) suggestedSection.remove();
-
-    this.input.value = question;
-    this.sendMessage();
-  }
-
-  addMessage(text, sender = "bot", isHTML = false) {
-    const messageEl = document.createElement("div");
-    messageEl.className = `chatbot-message ${sender}`;
-
-    const content = document.createElement("div");
-    content.className = "message-content";
-
-    if (isHTML) {
-      content.innerHTML = text;
-    } else {
-      content.textContent = text;
+    if (this.toggleButton) {
+      this.toggleButton.classList.remove("active");
     }
 
-    messageEl.appendChild(content);
-    this.messagesContainer.appendChild(messageEl);
+    this.syncStatus("Assistant status: ready");
+  }
 
-    this.messageHistory.push({ text, sender, timestamp: new Date() });
+  addUserMessage(text) {
+    this.addMessageBubble(text, "user");
+  }
+
+  addBotMessage(text) {
+    this.addMessageBubble(text, "bot");
+  }
+
+  addMessageBubble(text, sender) {
+    const row = document.createElement("div");
+    row.className = `chatbot-message ${sender}`;
+
+    const bubble = document.createElement("div");
+    bubble.className = "chatbot-bubble";
+    bubble.textContent = text;
+
+    row.appendChild(bubble);
+    this.messages.appendChild(row);
     this.scrollToBottom();
   }
 
   showTypingIndicator() {
-    const typingEl = document.createElement("div");
-    typingEl.className = "chatbot-message bot";
-    typingEl.id = "typing-indicator";
-    typingEl.innerHTML = `
-      <div class="typing-indicator">
-        <div class="typing-dot"></div>
-        <div class="typing-dot"></div>
-        <div class="typing-dot"></div>
-      </div>
-    `;
-    this.messagesContainer.appendChild(typingEl);
+    this.removeTypingIndicator();
+    const row = document.createElement("div");
+    row.className = "chatbot-message bot";
+    row.id = this.typingIndicatorId;
+
+    const bubble = document.createElement("div");
+    bubble.className = "chatbot-bubble chatbot-typing";
+    bubble.textContent = "Assistant is typing...";
+
+    row.appendChild(bubble);
+    this.messages.appendChild(row);
     this.scrollToBottom();
   }
 
   removeTypingIndicator() {
-    const typing = document.getElementById("typing-indicator");
-    if (typing) typing.remove();
+    const indicator = document.getElementById(this.typingIndicatorId);
+    if (indicator) {
+      indicator.remove();
+    }
   }
 
-  sendMessage() {
-    const message = this.input.value.trim();
+  handleSend() {
+    const userMessage = this.input.value.trim();
+    if (!userMessage) {
+      return;
+    }
 
-    if (!message) return;
+    if (!this.hasUserSentMessage) {
+      this.hasUserSentMessage = true;
+      this.hideSuggestions();
+    }
 
-    // Add user message
-    this.addMessage(message, "user");
+    this.addUserMessage(userMessage);
     this.input.value = "";
-    this.input.style.height = "auto";
+    this.respondToMessage(userMessage);
+  }
 
-    // Show typing indicator
+  hideSuggestions() {
+    if (this.suggestionsPanel) {
+      this.suggestionsPanel.classList.add("is-hidden");
+    }
+  }
+
+  async respondToMessage(userMessage) {
     this.showTypingIndicator();
 
-    // Generate bot response
-    setTimeout(() => {
+    try {
+      const reply = await this.fetchApiReply(userMessage);
       this.removeTypingIndicator();
-      const response = this.generateResponse(message);
-      this.addMessage(response, "bot", true);
-    }, 800);
-  }
-
-  generateResponse(userMessage) {
-    const lowerMessage = userMessage.toLowerCase();
-
-    // Check for greeting
-    if (this.matchKeywords(lowerMessage, chatbotResponses.greeting.keywords)) {
-      return chatbotResponses.greeting.response;
-    }
-
-    // Check for farewell
-    if (this.matchKeywords(lowerMessage, chatbotResponses.farewell.keywords)) {
-      return chatbotResponses.farewell.response;
-    }
-
-    // Check for UG admissions
-    if (this.matchKeywords(lowerMessage, chatbotResponses.admissionsUG.keywords)) {
-      return chatbotResponses.admissionsUG.response();
-    }
-
-    // Check for PG admissions
-    if (this.matchKeywords(lowerMessage, chatbotResponses.admissionsPG.keywords)) {
-      return chatbotResponses.admissionsPG.response();
-    }
-
-    // Check for UG courses
-    if (this.matchKeywords(lowerMessage, chatbotResponses.ugCourses.keywords)) {
-      return chatbotResponses.ugCourses.response();
-    }
-
-    // Check for PG courses
-    if (this.matchKeywords(lowerMessage, chatbotResponses.pgCourses.keywords)) {
-      return chatbotResponses.pgCourses.response();
-    }
-
-    // Check for specific department
-    for (const keyword of [
-      "computer",
-      "mechanical",
-      "electrical",
-      "electronics",
-      "civil",
-      "chemical",
-      "aerospace",
-      "ai",
-      "ml",
-    ]) {
-      if (lowerMessage.includes(keyword)) {
-        const response = chatbotResponses.specificDepartment.response(keyword);
-        if (response) return response;
+      this.addBotMessage(reply);
+    } catch (error) {
+      this.removeTypingIndicator();
+      const predefinedReply = this.getPredefinedResponse(userMessage);
+      if (predefinedReply) {
+        this.addBotMessage(predefinedReply);
+        return;
       }
-    }
 
-    // Check for placements
-    if (this.matchKeywords(lowerMessage, chatbotResponses.placements.keywords)) {
-      return chatbotResponses.placements.response();
+      this.addBotMessage("I could not reach the assistant service right now. Please try again in a moment.");
     }
-
-    // Check for facilities
-    if (this.matchKeywords(lowerMessage, chatbotResponses.facilities.keywords)) {
-      return chatbotResponses.facilities.response();
-    }
-
-    // Check for campus life
-    if (this.matchKeywords(lowerMessage, chatbotResponses.campusLife.keywords)) {
-      return chatbotResponses.campusLife.response();
-    }
-
-    // Check for departments
-    if (this.matchKeywords(lowerMessage, chatbotResponses.departments.keywords)) {
-      return chatbotResponses.departments.response();
-    }
-
-    // Check for research
-    if (this.matchKeywords(lowerMessage, chatbotResponses.research.keywords)) {
-      return chatbotResponses.research.response();
-    }
-
-    // Check for contact
-    if (this.matchKeywords(lowerMessage, chatbotResponses.contact.keywords)) {
-      return chatbotResponses.contact.response();
-    }
-
-    // Check for FAQ
-    if (this.matchKeywords(lowerMessage, chatbotResponses.faq.keywords)) {
-      return chatbotResponses.faq.response();
-    }
-
-    // Default response
-    return chatbotResponses.default.response;
   }
 
-  matchKeywords(message, keywords) {
-    return keywords.some((keyword) => message.includes(keyword.toLowerCase()));
+  getPredefinedResponse(message) {
+    const normalized = message.toLowerCase();
+    const match = this.predefinedResponses.find((item) =>
+      item.keywords.some((keyword) => normalized.includes(keyword))
+    );
+    return match ? match.reply : "";
+  }
+
+  async fetchApiReply(userMessage) {
+    const response = await fetch(this.apiEndpoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        message: userMessage,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error("API request failed");
+    }
+
+    const data = await response.json();
+    if (!data || typeof data.reply !== "string" || !data.reply.trim()) {
+      throw new Error("Invalid API response");
+    }
+
+    return data.reply.trim();
+  }
+
+  syncStatus(statusMessage) {
+    if (this.statusText) {
+      this.statusText.textContent = statusMessage;
+    }
   }
 
   scrollToBottom() {
-    this.messagesContainer.scrollTop = this.messagesContainer.scrollHeight;
-  }
-
-  resizeTextarea() {
-    this.input.style.height = "auto";
-    this.input.style.height = Math.min(this.input.scrollHeight, 100) + "px";
+    this.messages.scrollTop = this.messages.scrollHeight;
   }
 }
 
-// Initialize chatbot when DOM is ready
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", () => {
     new UniversityChatbot();

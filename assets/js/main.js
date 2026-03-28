@@ -88,12 +88,15 @@
   function buildNav() {
     const root = document.querySelector("[data-nav]");
     if (!root) return;
+    const visibleNavItems = navItems;
 
-    const links = navItems
+    const links = visibleNavItems
       .map((item) => {
         const activeClass = item.id === page ? "is-active" : "";
+        const targetAttr = item.target ? `target="${item.target}"` : "";
+        const relAttr = item.rel ? `rel="${item.rel}"` : "";
         let html = `<div class="nav-item ${item.submenu || item.submenuColumns ? 'has-submenu' : ''}">
-          <a class="nav-link ${activeClass}" href="${item.href}">${item.label}</a>`;
+          <a class="nav-link ${activeClass}" href="${item.href}" ${targetAttr} ${relAttr}>${item.label}</a>`;
         
         if (item.submenuColumns) {
           const columnsHtml = item.submenuColumns
@@ -120,10 +123,12 @@
       })
       .join("");
 
-    const mobileLinks = navItems
+    const mobileLinks = visibleNavItems
       .map((item) => {
+        const targetAttr = item.target ? `target="${item.target}"` : "";
+        const relAttr = item.rel ? `rel="${item.rel}"` : "";
         let html = `<div class="mobile-nav-item">
-          <a href="${item.href}">${item.label}</a>`;
+          <a href="${item.href}" ${targetAttr} ${relAttr}>${item.label}</a>`;
         
         if (item.submenuColumns) {
           const submenuHtml = item.submenuColumns
